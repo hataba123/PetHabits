@@ -1,0 +1,175 @@
+:root {
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #24324a;
+  background: #f6f8f4;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  --ink: #24324a;
+  --muted: #728096;
+  --surface: #ffffff;
+  --line: #e4e9e3;
+  --primary: #4f7c68;
+  --primary-soft: #e4f0e7;
+  --accent: #e59b57;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 3px solid rgba(229, 155, 87, 0.45);
+  outline-offset: 2px;
+}
+
+a {
+  color: inherit;
+}
+
+#app,
+.app-shell {
+  min-height: 100vh;
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 22px 28px;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.brand-mark {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  color: #fff;
+  background: var(--primary);
+  border-radius: 13px;
+}
+
+.brand strong,
+.brand small {
+  display: block;
+}
+
+.brand strong {
+  font-size: 1rem;
+}
+
+.brand small {
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: 0.72rem;
+}
+
+.main-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+.nav-link {
+  padding: 9px 13px;
+  color: var(--muted);
+  border-radius: 10px;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: color 160ms ease, background 160ms ease;
+}
+
+.nav-link:hover,
+.nav-link--active {
+  color: var(--primary);
+  background: var(--primary-soft);
+}
+
+.page-container {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 34px 28px 70px;
+}
+
+.page-intro {
+  margin-bottom: 28px;
+}
+
+.page-intro h1 {
+  margin: 0 0 8px;
+  color: var(--ink);
+  font-size: clamp(1.8rem, 3vw, 2.7rem);
+  letter-spacing: -0.04em;
+}
+
+.page-intro p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.baseline-card {
+  padding: 28px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  box-shadow: 0 14px 38px rgba(47, 74, 64, 0.06);
+}
+
+@media (max-width: 780px) {
+  .app-header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 18px;
+    padding: 18px 18px 12px;
+  }
+
+  .main-nav {
+    justify-content: flex-start;
+    width: 100%;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 3px;
+  }
+
+  .nav-link {
+    flex: 0 0 auto;
+  }
+
+  .page-container {
+    padding: 24px 18px 48px;
+  }
+}
