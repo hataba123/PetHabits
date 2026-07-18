@@ -5,6 +5,7 @@ import type { HabitCompletionType, HabitLog } from '../models'
 import { calculateExperience } from '../utils/experienceCalculator'
 import { getLocalDateKeyFromIso } from '../utils/dateUtils'
 import { createId } from '../utils/id'
+import { calculateStreakStats } from '../utils/streakCalculator'
 import { useAppStore } from './appStore'
 import { useCompanionStore } from './companionStore'
 import { useHabitStore } from './habitStore'
@@ -92,11 +93,16 @@ export const useCheckInStore = defineStore('checkIns', () => {
     return logs.value.filter((log) => getLocalDateKeyFromIso(log.completedAt) === dateKey)
   }
 
+  function getStreakStats(): ReturnType<typeof calculateStreakStats> {
+    return calculateStreakStats(logs.value)
+  }
+
   return {
     logs,
     createCheckIn,
     undoCheckIn,
     getCompletionCount,
     getLogsForDate,
+    getStreakStats,
   }
 })
