@@ -6,7 +6,13 @@ export default defineConfig({
   plugins: [vue()],
   test: {
     environment: 'jsdom',
+    environmentOptions: {
+      jsdom: {
+        url: 'http://localhost',
+      },
+    },
     globals: true,
     include: ['src/**/*.spec.ts'],
+    setupFiles: ['./src/test/setup.ts'],
   },
 })

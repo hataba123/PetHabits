@@ -1,0 +1,67 @@
+export type ThemeMode = 'light' | 'dark' | 'system'
+
+export type IdentityCategory = 'knowledge' | 'discipline' | 'health' | 'calm' | 'creativity'
+
+export type HabitTargetType = 'daily' | 'weekly'
+
+export type HabitCompletionType = 'minimum' | 'full'
+
+export type CompanionGrowthStage = 'egg' | 'baby' | 'teen' | 'adult' | 'evolved'
+
+export interface UserProfile {
+  id: string
+  displayName: string
+  futureIdentity: string
+  createdAt: string
+  updatedAt: string
+}
+
+export interface Habit {
+  id: string
+  name: string
+  description: string
+  identityStatement: string
+  identityCategory: IdentityCategory
+  targetType: HabitTargetType
+  targetCount: number
+  minimumVersion: string
+  experienceReward: number
+  isActive: boolean
+  createdAt: string
+  updatedAt: string
+}
+
+export interface HabitLog {
+  id: string
+  habitId: string
+  completionType: HabitCompletionType
+  completedAt: string
+  note: string
+  durationMinutes: number | null
+  experienceEarned: number
+  createdAt: string
+}
+
+export interface Companion {
+  name: string
+  totalExperience: number
+  level: number
+  currentExperience: number
+  experienceToNextLevel: number
+  growthStage: CompanionGrowthStage
+  happiness: number
+}
+
+export interface AppSettings {
+  theme: ThemeMode
+  firstDayOfWeek: 0 | 1
+}
+
+export interface AppState {
+  version: number
+  profile: UserProfile
+  habits: Habit[]
+  habitLogs: HabitLog[]
+  companion: Companion
+  settings: AppSettings
+}
