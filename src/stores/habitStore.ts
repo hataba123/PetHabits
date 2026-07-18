@@ -5,9 +5,11 @@ import type { Habit } from '../models'
 import { createId } from '../utils/id'
 import { type HabitInput, validateHabitInput } from '../utils/validators'
 import { useAppStore } from './appStore'
+import { useCompanionStore } from './companionStore'
 
 export const useHabitStore = defineStore('habits', () => {
   const appStore = useAppStore()
+  const companionStore = useCompanionStore()
   const habits = computed(() => appStore.appState.habits)
   const activeHabits = computed(() => habits.value.filter((habit) => habit.isActive))
 
@@ -81,6 +83,7 @@ export const useHabitStore = defineStore('habits', () => {
 
     appStore.appState.habits.splice(habitIndex, 1)
     appStore.appState.habitLogs = appStore.appState.habitLogs.filter((log) => log.habitId !== id)
+    companionStore.syncFromLogs(false)
     appStore.persist()
     return true
   }

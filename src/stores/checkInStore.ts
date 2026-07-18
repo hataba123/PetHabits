@@ -6,6 +6,7 @@ import { calculateExperience } from '../utils/experienceCalculator'
 import { getLocalDateKeyFromIso } from '../utils/dateUtils'
 import { createId } from '../utils/id'
 import { useAppStore } from './appStore'
+import { useCompanionStore } from './companionStore'
 import { useHabitStore } from './habitStore'
 
 export interface CheckInInput {
@@ -19,6 +20,7 @@ export interface CheckInInput {
 export const useCheckInStore = defineStore('checkIns', () => {
   const appStore = useAppStore()
   const habitStore = useHabitStore()
+  const companionStore = useCompanionStore()
   const logs = computed(() => appStore.appState.habitLogs)
 
   function isValidCheckIn(input: CheckInInput): boolean {
@@ -64,7 +66,7 @@ export const useCheckInStore = defineStore('checkIns', () => {
     }
 
     appStore.appState.habitLogs.push(log)
-    appStore.persist()
+    companionStore.syncFromLogs()
     return log
   }
 
@@ -76,7 +78,7 @@ export const useCheckInStore = defineStore('checkIns', () => {
     }
 
     appStore.appState.habitLogs.splice(logIndex, 1)
-    appStore.persist()
+    companionStore.syncFromLogs()
     return true
   }
 
