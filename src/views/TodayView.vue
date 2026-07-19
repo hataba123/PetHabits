@@ -70,7 +70,7 @@ function undoCheckIn(logId: string): void {
         <p>{{ appStore.profile.futureIdentity || 'Mỗi hành động nhỏ là một lá phiếu cho phiên bản bạn muốn trở thành.' }}</p>
       </div>
       <div class="companion-mini" aria-label="Tóm tắt bạn đồng hành">
-        <CompanionAvatar :shape="appStore.companion.shape" :growth-stage="appStore.companion.growthStage" variant="mini" :show-status="false" />
+        <CompanionAvatar :shape="appStore.companion.shape" :growth-stage="appStore.companion.growthStage" :accessory="appStore.companion.accessory" :color="appStore.companion.color" :expression="appStore.companion.expression" variant="mini" :show-status="false" />
         <div><span>Đồng hành cùng</span><strong>{{ appStore.companion.name }}</strong></div>
         <span class="companion-mini__level">Lv. {{ appStore.companion.level }}</span>
       </div>

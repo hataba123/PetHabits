@@ -22,11 +22,11 @@ export type CompanionAnimal =
   | 'turtle'
   | 'deer'
 
-export type CompanionAccessory = 'none' | 'sprout' | 'crown' | 'ribbon'
+export type CompanionAccessory = 'none' | 'sprout' | 'crown'
 
-export type CompanionColor = 'natural' | 'lavender' | 'ocean' | 'sunrise'
+export type CompanionColor = 'natural' | 'lavender'
 
-export type CompanionExpression = 'calm' | 'happy' | 'wink'
+export type CompanionExpression = 'calm' | 'wink'
 
 export type CompanionRewardType = 'accessory' | 'color' | 'expression'
 

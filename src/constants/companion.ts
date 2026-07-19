@@ -16,7 +16,6 @@ export const companionAccessoryOptions: ReadonlyArray<{
   { value: 'none', label: 'Tự nhiên', description: 'Giữ vẻ ngoài nguyên bản', icon: '·' },
   { value: 'sprout', label: 'Mầm non', description: 'Một chồi nhỏ của những khởi đầu', icon: '🌱' },
   { value: 'crown', label: 'Vương miện mềm', description: 'Dành cho sự bền bỉ của bạn', icon: '👑' },
-  { value: 'ribbon', label: 'Ruy-băng nắng', description: 'Một điểm nhấn ấm áp', icon: '🎀' },
 ]
 
 export const companionColorOptions: ReadonlyArray<{
@@ -26,8 +25,6 @@ export const companionColorOptions: ReadonlyArray<{
 }> = [
   { value: 'natural', label: 'Tự nhiên', description: 'Màu nguyên bản của loài' },
   { value: 'lavender', label: 'Tử đinh hương', description: 'Dịu nhẹ và thư thái' },
-  { value: 'ocean', label: 'Xanh đại dương', description: 'Mát lành và bình tĩnh' },
-  { value: 'sunrise', label: 'Nắng sớm', description: 'Ấm áp và nhiều hy vọng' },
 ]
 
 export const companionExpressionOptions: ReadonlyArray<{
@@ -37,7 +34,6 @@ export const companionExpressionOptions: ReadonlyArray<{
   icon: string
 }> = [
   { value: 'calm', label: 'Bình yên', description: 'Sẵn sàng đi cùng bạn', icon: '🙂' },
-  { value: 'happy', label: 'Rạng rỡ', description: 'Niềm vui từ những bước nhỏ', icon: '😊' },
   { value: 'wink', label: 'Nháy mắt', description: 'Một lời động viên tinh nghịch', icon: '😉' },
 ]
 

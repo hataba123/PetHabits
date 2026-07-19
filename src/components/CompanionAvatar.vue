@@ -2,18 +2,31 @@
 import { computed } from 'vue'
 
 import { toCompanionAnimal } from '../constants/companion'
-import type { CompanionAnimal, CompanionGrowthStage, CompanionShape } from '../models'
+import type {
+  CompanionAccessory,
+  CompanionAnimal,
+  CompanionColor,
+  CompanionExpression,
+  CompanionGrowthStage,
+  CompanionShape,
+} from '../models'
 
 const props = withDefaults(
   defineProps<{
     shape: CompanionShape
     growthStage: CompanionGrowthStage
+    accessory?: CompanionAccessory
+    color?: CompanionColor
+    expression?: CompanionExpression
     variant?: 'hero' | 'mini' | 'option'
     showStatus?: boolean
   }>(),
   {
     variant: 'hero',
     showStatus: true,
+    accessory: 'none',
+    color: 'natural',
+    expression: 'calm',
   },
 )
 
@@ -24,6 +37,8 @@ const avatarClasses = computed(() => [
   `companion-avatar--${props.variant}`,
   `companion-avatar--${animal.value}`,
   `companion-avatar--${props.growthStage}`,
+  `companion-avatar--${props.color}`,
+  `companion-avatar--expression-${props.expression}`,
 ])
 </script>
 
@@ -213,6 +228,13 @@ const avatarClasses = computed(() => [
         <path class="companion-avatar__panda-scarf" d="M37 94q23 10 46 0l-3 11q-20 8-40 0Z" />
       </g>
 
+      <g v-if="accessory === 'sprout'" class="companion-avatar__accessory companion-avatar__accessory--sprout">
+        <path d="M60 30c-1-8 1-13 5-18" />
+        <path d="M61 24c-8 1-12-3-12-9 8-1 12 3 12 9Z" />
+        <path d="M63 21c3-7 8-9 14-7-1 7-6 10-14 7Z" />
+      </g>
+      <path v-else-if="accessory === 'crown'" class="companion-avatar__accessory companion-avatar__accessory--crown" d="m40 29 4-15 10 9 6-13 6 13 10-9 4 15Z" />
+      <path v-if="expression === 'wink'" class="companion-avatar__expression" d="M39 62q6-6 12 0m18 0q6-6 12 0" />
       <path v-if="growthStage === 'evolved'" class="companion-avatar__sparkle" d="m99 22 2 6 6 2-6 2-2 6-2-6-6-2 6-2Z" />
     </svg>
     <i v-if="showStatus"></i>

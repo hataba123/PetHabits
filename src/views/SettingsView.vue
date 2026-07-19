@@ -155,7 +155,7 @@ function resetAllData(): void {
         </form>
 
         <form class="settings-card" @submit.prevent="saveCompanionName">
-          <div class="settings-card__heading"><div><span class="eyebrow">Bạn đồng hành</span><h2>Đặt tên cho người bạn nhỏ</h2></div><CompanionAvatar :shape="appStore.companion.shape" :growth-stage="appStore.companion.growthStage" variant="option" :show-status="false" /></div>
+          <div class="settings-card__heading"><div><span class="eyebrow">Bạn đồng hành</span><h2>Đặt tên cho người bạn nhỏ</h2></div><CompanionAvatar :shape="appStore.companion.shape" :growth-stage="appStore.companion.growthStage" :accessory="appStore.companion.accessory" :color="appStore.companion.color" :expression="appStore.companion.expression" variant="option" :show-status="false" /></div>
           <label class="field"><span>Tên companion</span><input v-model="companionName" type="text" maxlength="80" placeholder="Ví dụ: Mầm" /><small v-if="companionError" class="field-error">{{ companionError }}</small></label>
           <div class="form-actions"><button class="button button--primary" type="submit">Lưu tên</button></div>
         </form>
