@@ -44,6 +44,41 @@ Trên Windows, có thể chạy file `chay-pethabits.bat` để cài dependency 
 
 ## Hướng dẫn sử dụng
 
+## Cách chơi
+
+PetHabits là một vòng lặp đơn giản: chọn một hành động nhỏ, thực hiện, check-in và dùng EXP nhận được để cùng bạn đồng hành tiến bộ.
+
+### Vòng lặp mỗi ngày
+
+1. Mở màn hình **Hôm nay** để xem các thói quen đang hoạt động.
+2. Chọn một thói quen đủ nhỏ để bắt đầu.
+3. Thực hiện phiên bản tối thiểu hoặc hoàn thành đầy đủ mục tiêu.
+4. Bấm **Check-in** và chọn mức hoàn thành tương ứng.
+5. Nhận EXP, theo dõi phần trăm tiến độ trong ngày và tiếp tục với bước tiếp theo.
+6. Cuối ngày, vào **Hành trình** để xem lịch sử và streak của mình.
+
+### EXP, level và trưởng thành
+
+Mỗi check-in hợp lệ sẽ cộng EXP theo phần thưởng của thói quen. Tổng EXP được tính từ toàn bộ lịch sử check-in; khi hoàn tác một lần check-in, EXP và level sẽ tự tính lại.
+
+| Level | Giai đoạn | Ý nghĩa |
+| --- | --- | --- |
+| 1–4 | Trứng | Bắt đầu xây dựng nhịp mới |
+| 5–14 | Thú con | Duy trì những hành động nhỏ |
+| 15–29 | Thiếu niên | Thói quen bắt đầu vững hơn |
+| 30–49 | Trưởng thành | Hệ thống thói quen đã có nền tảng |
+| 50+ | Tiến hóa | Thành quả của quá trình bền bỉ |
+
+Hình dạng custom không tự đổi khi lên level. Bạn đồng hành sẽ giữ hình Tròn, Mềm, Tinh thể hoặc Lá mà bạn đã chọn; giai đoạn phát triển và emoji của companion sẽ thay đổi theo level.
+
+### Cách chơi hiệu quả
+
+- Bắt đầu bằng phiên bản tối thiểu, ví dụ đọc 2 phút thay vì đặt mục tiêu quá lớn.
+- Ưu tiên xuất hiện đều đặn hơn là chờ một ngày hoàn hảo.
+- Dùng mục tiêu tuần nếu lịch sinh hoạt không phù hợp với check-in mỗi ngày.
+- Ghi chú khi check-in để nhận ra điều gì giúp bạn duy trì thói quen.
+- Nếu bỏ lỡ một ngày, không cần reset; chỉ cần quay lại với một bước nhỏ ở lần tiếp theo.
+
 ### 1. Khai báo hồ sơ
 
 Vào **Cài đặt** để nhập tên hiển thị và câu mô tả phiên bản bạn muốn trở thành. Nội dung này sẽ xuất hiện ở màn hình **Hôm nay**.
