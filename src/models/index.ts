@@ -22,6 +22,20 @@ export type CompanionAnimal =
   | 'turtle'
   | 'deer'
 
+export type CompanionAccessory = 'none' | 'sprout' | 'crown' | 'ribbon'
+
+export type CompanionColor = 'natural' | 'lavender' | 'ocean' | 'sunrise'
+
+export type CompanionExpression = 'calm' | 'happy' | 'wink'
+
+export type CompanionRewardType = 'accessory' | 'color' | 'expression'
+
+export interface CompanionReward {
+  type: CompanionRewardType
+  value: CompanionAccessory | CompanionColor | CompanionExpression
+  label: string
+}
+
 /** Các giá trị cũ được giữ lại để đọc được dữ liệu đã lưu trước đây. */
 export type LegacyCompanionShape = 'orb' | 'soft-square' | 'crystal' | 'leaf'
 
@@ -64,6 +78,9 @@ export interface HabitLog {
 export interface Companion {
   name: string
   shape: CompanionShape
+  accessory: CompanionAccessory
+  color: CompanionColor
+  expression: CompanionExpression
   totalExperience: number
   level: number
   currentExperience: number

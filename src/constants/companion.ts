@@ -1,8 +1,45 @@
 import type {
+  CompanionAccessory,
   CompanionAnimal,
+  CompanionColor,
+  CompanionExpression,
   CompanionShape,
   LegacyCompanionShape,
 } from '../models'
+
+export const companionAccessoryOptions: ReadonlyArray<{
+  value: CompanionAccessory
+  label: string
+  description: string
+  icon: string
+}> = [
+  { value: 'none', label: 'Tự nhiên', description: 'Giữ vẻ ngoài nguyên bản', icon: '·' },
+  { value: 'sprout', label: 'Mầm non', description: 'Một chồi nhỏ của những khởi đầu', icon: '🌱' },
+  { value: 'crown', label: 'Vương miện mềm', description: 'Dành cho sự bền bỉ của bạn', icon: '👑' },
+  { value: 'ribbon', label: 'Ruy-băng nắng', description: 'Một điểm nhấn ấm áp', icon: '🎀' },
+]
+
+export const companionColorOptions: ReadonlyArray<{
+  value: CompanionColor
+  label: string
+  description: string
+}> = [
+  { value: 'natural', label: 'Tự nhiên', description: 'Màu nguyên bản của loài' },
+  { value: 'lavender', label: 'Tử đinh hương', description: 'Dịu nhẹ và thư thái' },
+  { value: 'ocean', label: 'Xanh đại dương', description: 'Mát lành và bình tĩnh' },
+  { value: 'sunrise', label: 'Nắng sớm', description: 'Ấm áp và nhiều hy vọng' },
+]
+
+export const companionExpressionOptions: ReadonlyArray<{
+  value: CompanionExpression
+  label: string
+  description: string
+  icon: string
+}> = [
+  { value: 'calm', label: 'Bình yên', description: 'Sẵn sàng đi cùng bạn', icon: '🙂' },
+  { value: 'happy', label: 'Rạng rỡ', description: 'Niềm vui từ những bước nhỏ', icon: '😊' },
+  { value: 'wink', label: 'Nháy mắt', description: 'Một lời động viên tinh nghịch', icon: '😉' },
+]
 
 export const companionAnimalOptions: ReadonlyArray<{
   value: CompanionAnimal
@@ -32,6 +69,18 @@ const legacyShapeToAnimal: Record<LegacyCompanionShape, CompanionAnimal> = {
 
 export function isCompanionAnimal(value: unknown): value is CompanionAnimal {
   return companionAnimalOptions.some((option) => option.value === value)
+}
+
+export function isCompanionAccessory(value: unknown): value is CompanionAccessory {
+  return companionAccessoryOptions.some((option) => option.value === value)
+}
+
+export function isCompanionColor(value: unknown): value is CompanionColor {
+  return companionColorOptions.some((option) => option.value === value)
+}
+
+export function isCompanionExpression(value: unknown): value is CompanionExpression {
+  return companionExpressionOptions.some((option) => option.value === value)
 }
 
 export function isCompanionShape(value: unknown): value is CompanionShape {

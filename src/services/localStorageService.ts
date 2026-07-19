@@ -6,15 +6,24 @@ import type {
   HabitLog,
   UserProfile,
 } from '../models'
-import { isCompanionShape, toCompanionAnimal } from '../constants/companion'
+import {
+  isCompanionAccessory,
+  isCompanionColor,
+  isCompanionExpression,
+  isCompanionShape,
+  toCompanionAnimal,
+} from '../constants/companion'
 import { createId } from '../utils/id'
 
 export const STORAGE_KEY = 'atomic-companion-state'
-export const CURRENT_STATE_VERSION = 2
+export const CURRENT_STATE_VERSION = 3
 
 const DEFAULT_COMPANION: Companion = {
   name: 'Mầm',
   shape: 'cat',
+  accessory: 'none',
+  color: 'natural',
+  expression: 'calm',
   totalExperience: 0,
   level: 1,
   currentExperience: 0,
@@ -125,32 +134,22 @@ function isCompanion(value: unknown): value is Companion {
   }
 
   return (
-    isString(value.name) &&
+    isCompanionCore(value) &&
     isCompanionShape(value.shape) &&
-    isNumber(value.totalExperience) &&
-    isNumber(value.level) &&
-    isNumber(value.currentExperience) &&
-    isNumber(value.experienceToNextLevel) &&
-    ['egg', 'baby', 'teen', 'adult', 'evolved'].includes(String(value.growthStage)) &&
-    isNumber(value.happiness)
+    isCompanionAccessory(value.accessory) &&
+    isCompanionColor(value.color) &&
+    isCompanionExpression(value.expression)
   )
 }
 
-function normalizeCompanion(companion: Companion): Companion {
-  return {
-    ...companion,
-    shape: toCompanionAnimal(companion.shape),
-  }
+type CompanionCore = Pick<Companion, 'name' | 'totalExperience' | 'level' | 'currentExperience' | 'experienceToNextLevel' | 'growthStage' | 'happiness'> & {
+  shape?: Companion['shape']
+  accessory?: Companion['accessory']
+  color?: Companion['color']
+  expression?: Companion['expression']
 }
 
-function normalizeState(state: AppState): AppState {
-  return {
-    ...state,
-    companion: normalizeCompanion(state.companion),
-  }
-}
-
-function isLegacyCompanion(value: unknown): value is Omit<Companion, 'shape'> {
+function isCompanionCore(value: unknown): value is CompanionCore {
   if (!isRecord(value)) {
     return false
   }
@@ -164,6 +163,23 @@ function isLegacyCompanion(value: unknown): value is Omit<Companion, 'shape'> {
     ['egg', 'baby', 'teen', 'adult', 'evolved'].includes(String(value.growthStage)) &&
     isNumber(value.happiness)
   )
+}
+
+function normalizeCompanion(companion: Companion): Companion {
+  return {
+    ...companion,
+    shape: toCompanionAnimal(companion.shape),
+    accessory: isCompanionAccessory(companion.accessory) ? companion.accessory : 'none',
+    color: isCompanionColor(companion.color) ? companion.color : 'natural',
+    expression: isCompanionExpression(companion.expression) ? companion.expression : 'calm',
+  }
+}
+
+function normalizeState(state: AppState): AppState {
+  return {
+    ...state,
+    companion: normalizeCompanion(state.companion),
+  }
 }
 
 function isSettings(value: unknown): value is AppSettings {
@@ -203,20 +219,38 @@ function migrateState(input: unknown): AppState | null {
     return normalizeState(input)
   }
 
-  if (input.version === 1 || input.version === 0) {
+  if (input.version === 2 || input.version === 1 || input.version === 0) {
+    if (
+      !isUserProfile(input.profile) ||
+      !Array.isArray(input.habits) ||
+      !input.habits.every(isHabit) ||
+      !Array.isArray(input.habitLogs) ||
+      !input.habitLogs.every(isHabitLog) ||
+      !isCompanionCore(input.companion) ||
+      !isSettings(input.settings)
+    ) {
+      return null
+    }
+
     const defaultState = createDefaultState()
     const companion = isCompanion(input.companion)
       ? normalizeCompanion(input.companion)
-      : isLegacyCompanion(input.companion)
-        ? { ...input.companion, shape: defaultState.companion.shape }
+      : isCompanionCore(input.companion)
+        ? {
+            ...defaultState.companion,
+            ...input.companion,
+            shape: isCompanionShape(input.companion.shape)
+              ? toCompanionAnimal(input.companion.shape)
+              : defaultState.companion.shape,
+          }
         : defaultState.companion
     const migratedState: AppState = {
       ...defaultState,
-      profile: isUserProfile(input.profile) ? input.profile : defaultState.profile,
-      habits: Array.isArray(input.habits) ? input.habits.filter(isHabit) : [],
-      habitLogs: Array.isArray(input.habitLogs) ? input.habitLogs.filter(isHabitLog) : [],
+      profile: input.profile,
+      habits: input.habits,
+      habitLogs: input.habitLogs,
       companion,
-      settings: isSettings(input.settings) ? input.settings : defaultState.settings,
+      settings: input.settings,
     }
 
     return migratedState

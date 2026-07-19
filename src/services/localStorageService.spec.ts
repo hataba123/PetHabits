@@ -18,7 +18,7 @@ describe('localStorageService', () => {
   it('returns a complete default state when storage is empty', () => {
     const state = loadState()
 
-    expect(state.version).toBe(2)
+    expect(state.version).toBe(3)
     expect(state.profile.id).toBeTruthy()
     expect(state.habits).toEqual([])
     expect(state.habitLogs).toEqual([])
@@ -46,7 +46,7 @@ describe('localStorageService', () => {
     const state = createDefaultState()
     const importedState = importState(exportState(state))
 
-    expect(importedState.version).toBe(2)
+    expect(importedState.version).toBe(3)
     expect(() => importState('{"version":2}')).toThrow()
   })
 
@@ -68,8 +68,9 @@ describe('localStorageService', () => {
 
     const migratedState = importState(JSON.stringify(legacyState))
 
-    expect(migratedState.version).toBe(2)
+    expect(migratedState.version).toBe(3)
     expect(migratedState.companion.shape).toBe('cat')
+    expect(migratedState.companion.accessory).toBe('none')
   })
 
   it('maps a previously saved shape to the closest animal companion', () => {
