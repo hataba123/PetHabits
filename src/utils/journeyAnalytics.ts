@@ -16,6 +16,7 @@ export interface HeatmapCell {
 export interface HabitAnalytics extends StreakStats {
   habitId: string
   completionRate: number
+  completionCount: number
   completedCount: number
   expectedCount: number
   totalDurationMinutes: number
@@ -173,6 +174,7 @@ export function calculateHabitAnalytics(
     habitId: habit.id,
     ...calculateStreakStats(logs.filter((log) => log.habitId === habit.id), referenceDate),
     completionRate: expectedCount ? Math.min(100, Math.round((habitLogs.length / expectedCount) * 100)) : 0,
+    completionCount: habitLogs.length,
     completedCount: completedDays,
     expectedCount,
     totalDurationMinutes: habitLogs.reduce((total, log) => total + (log.durationMinutes ?? 0), 0),
