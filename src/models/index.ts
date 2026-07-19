@@ -8,7 +8,19 @@ export type HabitCompletionType = 'minimum' | 'full'
 
 export type CompanionGrowthStage = 'egg' | 'baby' | 'teen' | 'adult' | 'evolved'
 
-export type CompanionAnimal = 'cat' | 'fox' | 'bunny' | 'panda' | 'dog' | 'koala' | 'penguin' | 'otter'
+export type CompanionAnimal =
+  | 'cat'
+  | 'fox'
+  | 'bunny'
+  | 'panda'
+  | 'dog'
+  | 'koala'
+  | 'penguin'
+  | 'otter'
+  | 'hamster'
+  | 'frog'
+  | 'turtle'
+  | 'deer'
 
 /** Các giá trị cũ được giữ lại để đọc được dữ liệu đã lưu trước đây. */
 export type LegacyCompanionShape = 'orb' | 'soft-square' | 'crystal' | 'leaf'

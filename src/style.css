@@ -377,6 +377,22 @@ a {
   background: linear-gradient(145deg, #fff1df, #f1d1b0);
 }
 
+.companion-avatar--hamster {
+  background: linear-gradient(145deg, #fff4dc, #f1d49f);
+}
+
+.companion-avatar--frog {
+  background: linear-gradient(145deg, #eff9dc, #c9e6a9);
+}
+
+.companion-avatar--turtle {
+  background: linear-gradient(145deg, #e9f5df, #c8dfbe);
+}
+
+.companion-avatar--deer {
+  background: linear-gradient(145deg, #fff4e1, #e8d0ad);
+}
+
 .companion-avatar__art {
   width: 92%;
   height: 92%;
@@ -531,6 +547,96 @@ a {
 .companion-avatar__otter-bubble {
   fill: #a6d9e6;
   opacity: 0.9;
+}
+
+.companion-avatar__hamster-ear {
+  fill: #c68d63;
+}
+
+.companion-avatar__hamster-inner-ear {
+  fill: #f0b8a0;
+}
+
+.companion-avatar__hamster-main {
+  fill: #dba56d;
+}
+
+.companion-avatar__hamster-cheek {
+  fill: #f3c890;
+}
+
+.companion-avatar__hamster-nose {
+  fill: #8b5145;
+}
+
+.companion-avatar__hamster-seed {
+  fill: #e7a64e;
+}
+
+.companion-avatar__frog-bulb,
+.companion-avatar__frog-main {
+  fill: #79b86b;
+}
+
+.companion-avatar__frog-eye {
+  fill: #24324a;
+}
+
+.companion-avatar__frog-belly {
+  fill: #c7e29d;
+}
+
+.companion-avatar__frog-cheek {
+  fill: #eaa1a0;
+  opacity: 0.75;
+}
+
+.companion-avatar__turtle-flipper {
+  fill: #76a967;
+}
+
+.companion-avatar__turtle-shell {
+  fill: #6f9c63;
+}
+
+.companion-avatar__turtle-shell-line {
+  fill: none;
+  stroke: #b4d28e;
+  stroke-linecap: round;
+  stroke-width: 2.2;
+}
+
+.companion-avatar__turtle-head {
+  fill: #a9cb82;
+}
+
+.companion-avatar__turtle-leaf {
+  fill: #79ad80;
+}
+
+.companion-avatar__deer-antler {
+  fill: none;
+  stroke: #946b4e;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 3;
+}
+
+.companion-avatar__deer-ear,
+.companion-avatar__deer-main {
+  fill: #c98f5e;
+}
+
+.companion-avatar__deer-muzzle {
+  fill: #f3d5aa;
+}
+
+.companion-avatar__deer-nose {
+  fill: #69473d;
+}
+
+.companion-avatar__deer-spot {
+  fill: #f1c78c;
 }
 
 .companion-avatar__eye {

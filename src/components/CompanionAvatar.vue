@@ -137,6 +137,67 @@ const avatarClasses = computed(() => [
         <circle class="companion-avatar__otter-bubble" cx="96" cy="27" r="4" />
       </g>
 
+      <g v-else-if="animal === 'hamster'" class="companion-avatar__animal companion-avatar__animal--hamster">
+        <circle class="companion-avatar__hamster-ear" cx="37" cy="40" r="15" />
+        <circle class="companion-avatar__hamster-ear" cx="83" cy="40" r="15" />
+        <circle class="companion-avatar__hamster-inner-ear" cx="37" cy="40" r="8" />
+        <circle class="companion-avatar__hamster-inner-ear" cx="83" cy="40" r="8" />
+        <path class="companion-avatar__hamster-main" d="M26 62c0-21 15-34 34-34s34 13 34 34c0 24-14 45-34 45S26 86 26 62Z" />
+        <ellipse class="companion-avatar__hamster-cheek" cx="41" cy="78" rx="13" ry="11" />
+        <ellipse class="companion-avatar__hamster-cheek" cx="79" cy="78" rx="13" ry="11" />
+        <ellipse class="companion-avatar__eye" cx="47" cy="62" rx="4" ry="5" />
+        <ellipse class="companion-avatar__eye" cx="73" cy="62" rx="4" ry="5" />
+        <circle class="companion-avatar__eye-shine" cx="45.5" cy="60.5" r="1.4" />
+        <circle class="companion-avatar__eye-shine" cx="71.5" cy="60.5" r="1.4" />
+        <circle class="companion-avatar__hamster-nose" cx="60" cy="75" r="4" />
+        <path class="companion-avatar__line" d="M60 79q-4 4-8 1m8-1q4 4 8 1" />
+        <path class="companion-avatar__hamster-seed" d="M90 94q8-7 12-1-3 8-11 7Z" />
+      </g>
+
+      <g v-else-if="animal === 'frog'" class="companion-avatar__animal companion-avatar__animal--frog">
+        <circle class="companion-avatar__frog-bulb" cx="39" cy="40" r="15" />
+        <circle class="companion-avatar__frog-bulb" cx="81" cy="40" r="15" />
+        <path class="companion-avatar__frog-main" d="M25 63c0-19 15-31 35-31s35 12 35 31c0 24-15 44-35 44S25 87 25 63Z" />
+        <ellipse class="companion-avatar__frog-eye" cx="39" cy="40" rx="5" ry="7" />
+        <ellipse class="companion-avatar__frog-eye" cx="81" cy="40" rx="5" ry="7" />
+        <circle class="companion-avatar__eye-shine" cx="37.5" cy="38" r="1.6" />
+        <circle class="companion-avatar__eye-shine" cx="79.5" cy="38" r="1.6" />
+        <path class="companion-avatar__frog-belly" d="M39 85c4-10 11-15 21-15s17 5 21 15c-3 12-10 18-21 18S42 97 39 85Z" />
+        <path class="companion-avatar__line" d="M43 73q17 12 34 0M52 84q8 5 16 0" />
+        <circle class="companion-avatar__frog-cheek" cx="38" cy="75" r="6" />
+        <circle class="companion-avatar__frog-cheek" cx="82" cy="75" r="6" />
+      </g>
+
+      <g v-else-if="animal === 'turtle'" class="companion-avatar__animal companion-avatar__animal--turtle">
+        <path class="companion-avatar__turtle-flipper" d="M38 69q-18-7-22 5 6 11 24 7Z" />
+        <path class="companion-avatar__turtle-flipper" d="M82 69q18-7 22 5-6 11-24 7Z" />
+        <ellipse class="companion-avatar__turtle-shell" cx="60" cy="72" rx="36" ry="35" />
+        <path class="companion-avatar__turtle-shell-line" d="M60 38v68M29 66h62M38 47q22 14 44 0M38 94q22-14 44 0" />
+        <path class="companion-avatar__turtle-head" d="M39 61c0-14 9-23 21-23s21 9 21 23v22c0 12-9 19-21 19s-21-7-21-19Z" />
+        <circle class="companion-avatar__eye" cx="51" cy="65" r="4" />
+        <circle class="companion-avatar__eye" cx="69" cy="65" r="4" />
+        <circle class="companion-avatar__eye-shine" cx="49.5" cy="63.5" r="1.3" />
+        <circle class="companion-avatar__eye-shine" cx="67.5" cy="63.5" r="1.3" />
+        <path class="companion-avatar__line" d="M55 77q5 4 10 0" />
+        <path class="companion-avatar__turtle-leaf" d="M91 30q9-7 14 0-6 8-14 6Z" />
+      </g>
+
+      <g v-else-if="animal === 'deer'" class="companion-avatar__animal companion-avatar__animal--deer">
+        <path class="companion-avatar__deer-antler" d="M39 44V29l-8-8m8 14 8-10m34 19V29l8-8m-8 14-8-10" />
+        <path class="companion-avatar__deer-ear" d="M39 48C25 44 20 33 26 25c12 0 20 9 18 22Z" />
+        <path class="companion-avatar__deer-ear" d="M81 48c14-4 19-15 13-23-12 0-20 9-18 22Z" />
+        <path class="companion-avatar__deer-main" d="M27 60c0-21 14-34 33-34s33 13 33 34c0 24-14 47-33 47S27 84 27 60Z" />
+        <path class="companion-avatar__deer-muzzle" d="M39 75c3-11 10-16 21-16s18 5 21 16c-3 13-10 20-21 20s-18-7-21-20Z" />
+        <circle class="companion-avatar__eye" cx="46" cy="62" r="4.5" />
+        <circle class="companion-avatar__eye" cx="74" cy="62" r="4.5" />
+        <circle class="companion-avatar__eye-shine" cx="44.5" cy="60.5" r="1.4" />
+        <circle class="companion-avatar__eye-shine" cx="72.5" cy="60.5" r="1.4" />
+        <path class="companion-avatar__deer-nose" d="m55 75 5-4 5 4-5 5Z" />
+        <path class="companion-avatar__line" d="M60 80q-4 5-8 1m8-1q4 5 8 1" />
+        <circle class="companion-avatar__deer-spot" cx="43" cy="45" r="3" />
+        <circle class="companion-avatar__deer-spot" cx="77" cy="45" r="3" />
+      </g>
+
       <g v-else class="companion-avatar__animal companion-avatar__animal--panda">
         <circle class="companion-avatar__panda-ear" cx="35" cy="37" r="14" />
         <circle class="companion-avatar__panda-ear" cx="85" cy="37" r="14" />

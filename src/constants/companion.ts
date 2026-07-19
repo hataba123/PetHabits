@@ -17,6 +17,10 @@ export const companionAnimalOptions: ReadonlyArray<{
   { value: 'koala', label: 'Koala Gió', description: 'Êm dịu, chậm rãi và an yên' },
   { value: 'penguin', label: 'Cánh cụt Băng', description: 'Ấm áp, kiên trì và đáng tin' },
   { value: 'otter', label: 'Rái cá Suối', description: 'Tinh nghịch, gần gũi và lạc quan' },
+  { value: 'hamster', label: 'Hamster Hạt Dẻ', description: 'Nhỏ nhắn, chăm chỉ và đáng yêu' },
+  { value: 'frog', label: 'Ếch Lá Non', description: 'Tươi vui, linh hoạt và nhiều hy vọng' },
+  { value: 'turtle', label: 'Rùa Rêu', description: 'Điềm tĩnh, bền bỉ và vững vàng' },
+  { value: 'deer', label: 'Hươu Sao', description: 'Dịu dàng, tinh tế và can đảm' },
 ]
 
 const legacyShapeToAnimal: Record<LegacyCompanionShape, CompanionAnimal> = {
