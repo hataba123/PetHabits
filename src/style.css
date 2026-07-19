@@ -308,6 +308,15 @@ a {
   border-radius: 18px;
 }
 
+:root[data-theme='dark'] .today-progress-card {
+  background: #1c3024;
+  border-color: #2f4b38;
+}
+
+:root[data-theme='dark'] .today-progress-card p {
+  color: #a9c3b0;
+}
+
 .companion-hero-card {
   display: flex;
   align-items: center;
@@ -318,48 +327,62 @@ a {
   border-radius: 22px;
 }
 
+:root[data-theme='dark'] .companion-hero-card {
+  background: linear-gradient(120deg, #1c3024, #382b1e);
+  border-color: #385344;
+}
+
 .companion-avatar {
   position: relative;
   display: grid;
-  width: 106px;
-  height: 106px;
+  width: 116px;
+  height: 116px;
   place-items: center;
   flex: 0 0 auto;
-  background: #fff;
-  border: 8px solid #dbeadd;
-  border-radius: 50%;
-  box-shadow: 0 10px 28px rgba(47, 74, 64, 0.1);
-  transition: border-radius 180ms ease, clip-path 180ms ease;
-}
-
-.companion-avatar--soft-square {
-  border-radius: 31%;
-}
-
-.companion-avatar--crystal {
   border: 0;
-  border-radius: 0;
-  background: #dbeadd;
-  clip-path: polygon(50% 0%, 88% 23%, 100% 72%, 50% 100%, 0 72%, 12% 23%);
-  box-shadow: none;
+  border-radius: 42% 46% 44% 40% / 40% 42% 46% 44%;
+  box-shadow: 0 12px 28px rgba(47, 74, 64, 0.12);
+  transition: background 180ms ease, box-shadow 180ms ease, transform 180ms ease;
 }
 
-.companion-avatar--crystal::before {
-  position: absolute;
-  inset: 8px;
-  background: #fff;
-  clip-path: inherit;
-  content: '';
+.companion-avatar--cat {
+  background: linear-gradient(145deg, #fff3df, #ffe3bd);
 }
 
-.companion-avatar--leaf {
-  border-radius: 100% 0 100% 0;
+.companion-avatar--fox {
+  background: linear-gradient(145deg, #fff0e5, #ffd6ae);
 }
 
-.companion-avatar span {
-  position: relative;
-  z-index: 1;
-  font-size: 3.1rem;
+.companion-avatar--bunny {
+  background: linear-gradient(145deg, #fff2f1, #f7d9d6);
+}
+
+.companion-avatar--panda {
+  background: linear-gradient(145deg, #eff8f2, #d5e9dc);
+}
+
+.companion-avatar--dog {
+  background: linear-gradient(145deg, #fff4e4, #f3d3aa);
+}
+
+.companion-avatar--koala {
+  background: linear-gradient(145deg, #f1f4ef, #d9e1d6);
+}
+
+.companion-avatar--penguin {
+  background: linear-gradient(145deg, #edf8ff, #cbe3f0);
+}
+
+.companion-avatar--otter {
+  background: linear-gradient(145deg, #fff1df, #f1d1b0);
+}
+
+.companion-avatar__art {
+  width: 92%;
+  height: 92%;
+  overflow: visible;
+  transform-origin: center;
+  transition: transform 180ms ease;
 }
 
 .companion-avatar i {
@@ -374,36 +397,222 @@ a {
   border-radius: 50%;
 }
 
+.companion-avatar__animal {
+  transform-origin: 60px 74px;
+}
+
+.companion-avatar__cat-main {
+  fill: #f2b477;
+}
+
+.companion-avatar__cat-inner-ear {
+  fill: #f5d2bd;
+}
+
+.companion-avatar__cat-belly {
+  fill: #ffe5c3;
+}
+
+.companion-avatar__fox-main {
+  fill: #e58a4f;
+}
+
+.companion-avatar__fox-ear {
+  fill: #f6c6ae;
+}
+
+.companion-avatar__fox-muzzle,
+.companion-avatar__fox-mask {
+  fill: #fff1dc;
+}
+
+.companion-avatar__bunny-main {
+  fill: #f5d5d1;
+}
+
+.companion-avatar__bunny-inner-ear {
+  fill: #eaa8aa;
+}
+
+.companion-avatar__bunny-cheek {
+  fill: #f8c5c0;
+  opacity: 0.72;
+}
+
+.companion-avatar__panda-ear,
+.companion-avatar__panda-eye-patch {
+  fill: #34483e;
+}
+
+.companion-avatar__panda-main {
+  fill: #f9fbf7;
+}
+
+.companion-avatar__panda-scarf {
+  fill: #75a986;
+}
+
+.companion-avatar__dog-ear {
+  fill: #bd855e;
+}
+
+.companion-avatar__dog-main {
+  fill: #d9a16c;
+}
+
+.companion-avatar__dog-muzzle {
+  fill: #ffe8c8;
+}
+
+.companion-avatar__dog-nose,
+.companion-avatar__koala-nose,
+.companion-avatar__otter-nose {
+  fill: #543e3a;
+}
+
+.companion-avatar__dog-tongue {
+  fill: #ed9da2;
+}
+
+.companion-avatar__koala-ear {
+  fill: #aebbb2;
+}
+
+.companion-avatar__koala-inner-ear {
+  fill: #d5ded7;
+}
+
+.companion-avatar__koala-main {
+  fill: #c1ccc5;
+}
+
+.companion-avatar__koala-muzzle {
+  fill: #e4ebe4;
+}
+
+.companion-avatar__koala-leaf {
+  fill: #79ad80;
+}
+
+.companion-avatar__penguin-flipper,
+.companion-avatar__penguin-main {
+  fill: #3e5c69;
+}
+
+.companion-avatar__penguin-belly {
+  fill: #f7faf4;
+}
+
+.companion-avatar__penguin-beak {
+  fill: #f0ae5f;
+}
+
+.companion-avatar__penguin-scarf {
+  fill: #68a7b5;
+}
+
+.companion-avatar__otter-ear {
+  fill: #8f624c;
+}
+
+.companion-avatar__otter-inner-ear {
+  fill: #c08b6e;
+}
+
+.companion-avatar__otter-main {
+  fill: #a87758;
+}
+
+.companion-avatar__otter-muzzle,
+.companion-avatar__otter-belly {
+  fill: #f1d3ad;
+}
+
+.companion-avatar__otter-bubble {
+  fill: #a6d9e6;
+  opacity: 0.9;
+}
+
+.companion-avatar__eye {
+  fill: #24324a;
+}
+
+.companion-avatar__eye-shine {
+  fill: #fff;
+}
+
+.companion-avatar__nose {
+  fill: #633f3b;
+}
+
+.companion-avatar__line {
+  fill: none;
+  stroke: #633f3b;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2.5;
+}
+
+.companion-avatar__sparkle {
+  fill: #f0b36d;
+}
+
+.companion-avatar--egg .companion-avatar__art {
+  transform: scale(0.84) translateY(7px);
+}
+
+.companion-avatar--baby .companion-avatar__art {
+  transform: scale(0.91) translateY(4px);
+}
+
+.companion-avatar--teen .companion-avatar__art {
+  transform: scale(0.97) translateY(1px);
+}
+
+.companion-avatar--evolved .companion-avatar__art {
+  transform: scale(1.02);
+}
+
+.companion-avatar--evolved .companion-avatar__sparkle {
+  animation: companion-sparkle 2.4s ease-in-out infinite;
+  transform-origin: center;
+}
+
 .companion-avatar--mini {
-  width: 42px;
-  height: 42px;
+  width: 46px;
+  height: 46px;
   border: 0;
-  background: #fff3de;
   box-shadow: none;
-}
-
-.companion-avatar--mini span {
-  font-size: 1.45rem;
-}
-
-.companion-avatar--mini.companion-avatar--crystal::before {
-  inset: 4px;
 }
 
 .companion-avatar--option {
-  width: 44px;
-  height: 44px;
+  width: 58px;
+  height: 58px;
   flex: 0 0 auto;
-  border-width: 4px;
   box-shadow: none;
 }
 
-.companion-avatar--option span {
-  font-size: 1.35rem;
+.companion-shape-option--active .companion-avatar {
+  box-shadow: 0 0 0 3px var(--surface), 0 0 0 5px var(--primary), 0 8px 18px rgba(47, 74, 64, 0.14);
 }
 
-.companion-avatar--option.companion-avatar--crystal::before {
-  inset: 4px;
+@keyframes companion-sparkle {
+  0%,
+  100% {
+    opacity: 0.62;
+    transform: scale(0.92);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .companion-avatar--evolved .companion-avatar__sparkle {
+    animation: none;
+  }
 }
 
 .companion-hero-card__content {
@@ -1046,21 +1255,22 @@ a {
 .companion-shape-options {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
+  gap: 12px;
 }
 
 .companion-shape-option {
   display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 11px;
+  align-items: flex-start;
+  gap: 12px;
+  min-height: 84px;
+  padding: 12px;
   color: var(--muted);
   text-align: left;
   background: transparent;
   border: 1px solid var(--line);
-  border-radius: 13px;
+  border-radius: 16px;
   cursor: pointer;
-  transition: border-color 160ms ease, background 160ms ease, transform 160ms ease;
+  transition: border-color 160ms ease, background 160ms ease, box-shadow 160ms ease, transform 160ms ease;
 }
 
 .companion-shape-option:hover {
@@ -1072,6 +1282,7 @@ a {
   color: var(--primary);
   background: var(--primary-soft);
   border-color: #a9c9b0;
+  box-shadow: 0 8px 18px rgba(79, 124, 104, 0.1);
 }
 
 .companion-shape-option > span {
@@ -1079,7 +1290,8 @@ a {
 }
 
 .companion-shape-option strong,
-.companion-shape-option small {
+.companion-shape-option small,
+.companion-shape-option em {
   display: block;
 }
 
@@ -1093,6 +1305,14 @@ a {
   color: var(--muted);
   font-size: 0.68rem;
   line-height: 1.3;
+}
+
+.companion-shape-option em {
+  margin-top: 7px;
+  color: var(--primary);
+  font-size: 0.67rem;
+  font-style: normal;
+  font-weight: 700;
 }
 
 .settings-help {

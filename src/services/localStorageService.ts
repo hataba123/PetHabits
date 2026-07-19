@@ -6,7 +6,7 @@ import type {
   HabitLog,
   UserProfile,
 } from '../models'
-import { isCompanionShape } from '../constants/companion'
+import { isCompanionShape, toCompanionAnimal } from '../constants/companion'
 import { createId } from '../utils/id'
 
 export const STORAGE_KEY = 'atomic-companion-state'
@@ -14,7 +14,7 @@ export const CURRENT_STATE_VERSION = 2
 
 const DEFAULT_COMPANION: Companion = {
   name: 'Mầm',
-  shape: 'orb',
+  shape: 'cat',
   totalExperience: 0,
   level: 1,
   currentExperience: 0,
@@ -136,6 +136,20 @@ function isCompanion(value: unknown): value is Companion {
   )
 }
 
+function normalizeCompanion(companion: Companion): Companion {
+  return {
+    ...companion,
+    shape: toCompanionAnimal(companion.shape),
+  }
+}
+
+function normalizeState(state: AppState): AppState {
+  return {
+    ...state,
+    companion: normalizeCompanion(state.companion),
+  }
+}
+
 function isLegacyCompanion(value: unknown): value is Omit<Companion, 'shape'> {
   if (!isRecord(value)) {
     return false
@@ -186,13 +200,13 @@ function migrateState(input: unknown): AppState | null {
   }
 
   if (input.version === CURRENT_STATE_VERSION && isAppState(input)) {
-    return input
+    return normalizeState(input)
   }
 
   if (input.version === 1 || input.version === 0) {
     const defaultState = createDefaultState()
     const companion = isCompanion(input.companion)
-      ? input.companion
+      ? normalizeCompanion(input.companion)
       : isLegacyCompanion(input.companion)
         ? { ...input.companion, shape: defaultState.companion.shape }
         : defaultState.companion

@@ -23,7 +23,7 @@ describe('localStorageService', () => {
     expect(state.habits).toEqual([])
     expect(state.habitLogs).toEqual([])
     expect(state.companion.name).toBe('Mầm')
-    expect(state.companion.shape).toBe('orb')
+    expect(state.companion.shape).toBe('cat')
   })
 
   it('saves and loads a state with the single application key', () => {
@@ -69,7 +69,19 @@ describe('localStorageService', () => {
     const migratedState = importState(JSON.stringify(legacyState))
 
     expect(migratedState.version).toBe(2)
-    expect(migratedState.companion.shape).toBe('orb')
+    expect(migratedState.companion.shape).toBe('cat')
+  })
+
+  it('maps a previously saved shape to the closest animal companion', () => {
+    const state = createDefaultState()
+    const legacyState = {
+      ...state,
+      companion: { ...state.companion, shape: 'crystal' },
+    }
+
+    const migratedState = importState(JSON.stringify(legacyState))
+
+    expect(migratedState.companion.shape).toBe('fox')
   })
 
   it('clears only the application state key', () => {

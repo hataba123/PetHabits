@@ -8,7 +8,12 @@ export type HabitCompletionType = 'minimum' | 'full'
 
 export type CompanionGrowthStage = 'egg' | 'baby' | 'teen' | 'adult' | 'evolved'
 
-export type CompanionShape = 'orb' | 'soft-square' | 'crystal' | 'leaf'
+export type CompanionAnimal = 'cat' | 'fox' | 'bunny' | 'panda' | 'dog' | 'koala' | 'penguin' | 'otter'
+
+/** Các giá trị cũ được giữ lại để đọc được dữ liệu đã lưu trước đây. */
+export type LegacyCompanionShape = 'orb' | 'soft-square' | 'crystal' | 'leaf'
+
+export type CompanionShape = CompanionAnimal | LegacyCompanionShape
 
 export interface UserProfile {
   id: string

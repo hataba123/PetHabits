@@ -3,8 +3,8 @@ import { ref } from 'vue'
 
 import { applyTheme } from '../composables/useTheme'
 import CompanionAvatar from '../components/CompanionAvatar.vue'
-import { companionShapeOptions } from '../constants/companion'
-import type { CompanionShape, ThemeMode } from '../models'
+import { companionAnimalOptions } from '../constants/companion'
+import type { CompanionAnimal, ThemeMode } from '../models'
 import { exportState, importState } from '../services/localStorageService'
 import { useAppStore } from '../stores/appStore'
 import { useCompanionStore } from '../stores/companionStore'
@@ -57,12 +57,12 @@ function saveCompanionName(): void {
   showSuccess('Đã đổi tên bạn đồng hành.')
 }
 
-function changeCompanionShape(shape: CompanionShape): void {
-  if (!appStore.updateCompanionShape(shape)) {
+function changeCompanionAnimal(animal: CompanionAnimal): void {
+  if (!appStore.updateCompanionShape(animal)) {
     return
   }
 
-  showSuccess('Đã cập nhật hình dạng bạn đồng hành.')
+  showSuccess('Đã chọn người bạn đồng hành mới.')
 }
 
 function changeTheme(theme: ThemeMode): void {
@@ -161,20 +161,20 @@ function resetAllData(): void {
         </form>
 
         <div class="settings-card">
-          <div class="settings-card__heading"><div><span class="eyebrow">Bạn đồng hành</span><h2>Chọn hình dạng yêu thích</h2></div><span aria-hidden="true">✨</span></div>
-          <p class="settings-help">Hình dạng được lưu ngay và xuất hiện ở mọi nơi bạn gặp {{ appStore.companion.name }}.</p>
-          <div class="companion-shape-options" role="group" aria-label="Hình dạng bạn đồng hành">
+          <div class="settings-card__heading"><div><span class="eyebrow">Bạn đồng hành</span><h2>Chọn người bạn muốn nuôi</h2></div><span aria-hidden="true">✨</span></div>
+          <p class="settings-help">Mỗi người bạn có một năng lượng riêng. Lựa chọn được lưu ngay và xuất hiện ở mọi nơi bạn gặp {{ appStore.companion.name }}.</p>
+          <div class="companion-shape-options" role="group" aria-label="Loài bạn đồng hành">
             <button
-              v-for="option in companionShapeOptions"
+              v-for="option in companionAnimalOptions"
               :key="option.value"
               class="companion-shape-option"
               :class="{ 'companion-shape-option--active': appStore.companion.shape === option.value }"
               type="button"
               :aria-pressed="appStore.companion.shape === option.value"
-              @click="changeCompanionShape(option.value)"
+              @click="changeCompanionAnimal(option.value)"
             >
               <CompanionAvatar :shape="option.value" :growth-stage="appStore.companion.growthStage" variant="option" :show-status="false" />
-              <span><strong>{{ option.label }}</strong><small>{{ option.description }}</small></span>
+              <span><strong>{{ option.label }}</strong><small>{{ option.description }}</small><em v-if="appStore.companion.shape === option.value">✓ Đang nuôi</em></span>
             </button>
           </div>
         </div>

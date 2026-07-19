@@ -40,13 +40,13 @@ describe('appStore', () => {
     expect(appStore.companion.name).toBe(originalName)
   })
 
-  it('updates and persists a valid companion shape', () => {
+  it('updates and persists a valid companion animal', () => {
     const appStore = useAppStore()
     appStore.initialize()
 
-    expect(appStore.updateCompanionShape('crystal')).toBe(true)
-    expect(appStore.companion.shape).toBe('crystal')
-    expect(loadState().companion.shape).toBe('crystal')
+    expect(appStore.updateCompanionShape('fox')).toBe(true)
+    expect(appStore.companion.shape).toBe('fox')
+    expect(loadState().companion.shape).toBe('fox')
     expect(appStore.updateCompanionShape('invalid' as never)).toBe(false)
   })
 })

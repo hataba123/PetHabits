@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 
-import type { AppSettings, AppState, CompanionShape, UserProfile } from '../models'
-import { isCompanionShape } from '../constants/companion'
+import type { AppSettings, AppState, CompanionAnimal, UserProfile } from '../models'
+import { isCompanionAnimal } from '../constants/companion'
 import {
   clearState,
   createDefaultState,
@@ -64,8 +64,8 @@ export const useAppStore = defineStore('app', {
       return true
     },
 
-    updateCompanionShape(shape: CompanionShape): boolean {
-      if (!isCompanionShape(shape)) {
+    updateCompanionShape(shape: CompanionAnimal): boolean {
+      if (!isCompanionAnimal(shape)) {
         return false
       }
 
