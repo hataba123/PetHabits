@@ -8,11 +8,13 @@ import { useHabitStore } from '../stores/habitStore'
 import type { Habit, IdentityCategory } from '../models'
 import {
   buildHeatmap,
+  buildJourneyInsights,
   calculateHabitAnalytics,
   calculateWeekComparison,
   formatMinutes,
   type AnalyticsPeriod,
   type HeatmapCell,
+  type TimeOfDay,
 } from '../utils/journeyAnalytics'
 import { getLocalDateKeyFromIso } from '../utils/dateUtils'
 
@@ -79,6 +81,19 @@ const habitAnalytics = computed(() => {
 })
 const weekComparison = computed(() => calculateWeekComparison(checkInStore.logs, new Date(), appStore.settings.firstDayOfWeek))
 const weekChartMax = computed(() => Math.max(1, weekComparison.value.current.completionCount, weekComparison.value.previous.completionCount))
+const journeyInsights = computed(() => buildJourneyInsights(habitStore.habits, checkInStore.logs, new Date(), selectedPeriod.value))
+const timeOfDayLabels: Record<TimeOfDay, string> = {
+  morning: 'buổi sáng',
+  afternoon: 'buổi chiều',
+  evening: 'buổi tối',
+  night: 'đêm khuya',
+}
+const timeOfDayDetails: Record<TimeOfDay, string> = {
+  morning: 'Khoảng 05:00–12:00 là lúc bạn xuất hiện đều đặn nhất.',
+  afternoon: 'Khoảng 12:00–18:00 là lúc bạn xuất hiện đều đặn nhất.',
+  evening: 'Khoảng 18:00–24:00 là lúc bạn xuất hiện đều đặn nhất.',
+  night: 'Khoảng 00:00–05:00 là lúc bạn xuất hiện đều đặn nhất.',
+}
 
 function getHabitName(habitId: string): string {
   return habitStore.habits.find((habit) => habit.id === habitId)?.name || 'Thói quen đã xóa'
@@ -95,6 +110,14 @@ function getHeatmapTitle(cell: HeatmapCell | null): string | undefined {
 
   const timeLabel = cell.durationMinutes ? ` · ${formatMinutes(cell.durationMinutes)}` : ''
   return `${cell.label}: ${cell.completionCount} lần hoàn thành${timeLabel}`
+}
+
+function getTimeOfDayLabel(timeOfDay: TimeOfDay | null): string {
+  return timeOfDay ? timeOfDayLabels[timeOfDay] : 'chưa xác định'
+}
+
+function getTimeOfDayDetail(timeOfDay: TimeOfDay | null): string {
+  return timeOfDay ? timeOfDayDetails[timeOfDay] : 'Hãy check-in thêm để nhận ra nhịp sinh hoạt phù hợp với bạn.'
 }
 
 function getWeekBarWidth(completionCount: number): string {
@@ -219,6 +242,21 @@ function removeLog(logId: string): void {
         <div v-else class="empty-state empty-state--compact"><h2>Chưa có thói quen hoạt động</h2><p>Hãy tạo một thói quen để xem tiến độ riêng.</p></div>
       </article>
     </div>
+
+    <article class="journey-report-card">
+      <div class="journey-panel__heading"><div><span class="eyebrow">Báo cáo ngắn cuối tuần</span><h2>Một chút gợi ý từ hành trình của bạn</h2></div><span class="section-count">{{ selectedPeriod }} ngày gần nhất</span></div>
+      <div class="journey-report-list">
+        <div v-if="journeyInsights.strongestTimeOfDay" class="journey-report-item">
+          <span class="journey-report-item__icon" aria-hidden="true">☀</span>
+          <div><span class="eyebrow">Khung giờ nổi bật</span><strong>Bạn duy trì tốt nhất vào {{ getTimeOfDayLabel(journeyInsights.strongestTimeOfDay) }}</strong><small>{{ getTimeOfDayDetail(journeyInsights.strongestTimeOfDay) }}</small></div>
+        </div>
+        <div v-if="journeyInsights.weekendSkip" class="journey-report-item journey-report-item--warm">
+          <span class="journey-report-item__icon" aria-hidden="true">◌</span>
+          <div><span class="eyebrow">Cuối tuần</span><strong>Thói quen {{ journeyInsights.weekendSkip.habitName }} thường bị bỏ qua vào cuối tuần</strong><small>{{ journeyInsights.weekendSkip.skippedDays }}/{{ journeyInsights.weekendSkip.totalWeekendDays }} ngày cuối tuần chưa có check-in ({{ journeyInsights.weekendSkip.skipRate }}%).</small></div>
+        </div>
+        <div v-if="!journeyInsights.strongestTimeOfDay && !journeyInsights.weekendSkip" class="journey-report-empty"><strong>Chưa đủ dữ liệu để viết báo cáo.</strong><span>Thêm vài lần check-in nữa, những tín hiệu nhỏ sẽ bắt đầu hiện ra.</span></div>
+      </div>
+    </article>
 
     <div class="section-heading"><div><span class="eyebrow">Nhật ký</span><h2>Các lần check-in</h2></div><span class="section-count">{{ filteredLogs.length }} kết quả</span></div>
 
