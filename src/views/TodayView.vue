@@ -2,6 +2,7 @@
 import { computed, ref } from 'vue'
 
 import CheckInForm from '../components/habits/CheckInForm.vue'
+import CompanionAvatar from '../components/CompanionAvatar.vue'
 import type { Habit } from '../models'
 import { useAppStore } from '../stores/appStore'
 import { useCheckInStore, type CheckInInput } from '../stores/checkInStore'
@@ -69,7 +70,7 @@ function undoCheckIn(logId: string): void {
         <p>{{ appStore.profile.futureIdentity || 'Mỗi hành động nhỏ là một lá phiếu cho phiên bản bạn muốn trở thành.' }}</p>
       </div>
       <div class="companion-mini" aria-label="Tóm tắt bạn đồng hành">
-        <span class="companion-mini__emoji" aria-hidden="true">🥚</span>
+        <CompanionAvatar :shape="appStore.companion.shape" :growth-stage="appStore.companion.growthStage" variant="mini" :show-status="false" />
         <div><span>Đồng hành cùng</span><strong>{{ appStore.companion.name }}</strong></div>
         <span class="companion-mini__level">Lv. {{ appStore.companion.level }}</span>
       </div>

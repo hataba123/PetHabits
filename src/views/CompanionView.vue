@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 
+import CompanionAvatar from '../components/CompanionAvatar.vue'
 import { identityCategoryLabels } from '../constants/identity'
 import { useCompanionStore } from '../stores/companionStore'
 
@@ -14,13 +15,6 @@ const stageLabels = {
   adult: 'Trưởng thành',
   evolved: 'Tiến hóa',
 } as const
-const stageEmoji = {
-  egg: '🥚',
-  baby: '🐣',
-  teen: '🐾',
-  adult: '🦊',
-  evolved: '✨',
-} as const
 </script>
 
 <template>
@@ -32,7 +26,7 @@ const stageEmoji = {
     </div>
 
     <div class="companion-hero-card">
-      <div class="companion-orb" aria-hidden="true"><span>{{ stageEmoji[companion.growthStage] }}</span><i></i></div>
+      <CompanionAvatar :shape="companion.shape" :growth-stage="companion.growthStage" />
       <div class="companion-hero-card__content"><span class="eyebrow">Giai đoạn {{ stageLabels[companion.growthStage] }}</span><h2>{{ companion.name }}</h2><p>{{ companion.level >= 5 ? 'Bạn đang xây dựng một nhịp sống ngày càng vững vàng.' : 'Một người bạn nhỏ đang lớn lên cùng từng bước của bạn.' }}</p></div>
       <div class="level-pill"><span>Level</span><strong>{{ companion.level }}</strong></div>
     </div>

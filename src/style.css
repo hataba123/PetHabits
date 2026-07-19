@@ -273,16 +273,6 @@ a {
   border-radius: 16px;
 }
 
-.companion-mini__emoji {
-  display: grid;
-  width: 42px;
-  height: 42px;
-  place-items: center;
-  background: #fff3de;
-  border-radius: 13px;
-  font-size: 1.45rem;
-}
-
 .companion-mini div {
   min-width: 0;
 }
@@ -328,7 +318,7 @@ a {
   border-radius: 22px;
 }
 
-.companion-orb {
+.companion-avatar {
   position: relative;
   display: grid;
   width: 106px;
@@ -339,14 +329,42 @@ a {
   border: 8px solid #dbeadd;
   border-radius: 50%;
   box-shadow: 0 10px 28px rgba(47, 74, 64, 0.1);
+  transition: border-radius 180ms ease, clip-path 180ms ease;
 }
 
-.companion-orb span {
+.companion-avatar--soft-square {
+  border-radius: 31%;
+}
+
+.companion-avatar--crystal {
+  border: 0;
+  border-radius: 0;
+  background: #dbeadd;
+  clip-path: polygon(50% 0%, 88% 23%, 100% 72%, 50% 100%, 0 72%, 12% 23%);
+  box-shadow: none;
+}
+
+.companion-avatar--crystal::before {
+  position: absolute;
+  inset: 8px;
+  background: #fff;
+  clip-path: inherit;
+  content: '';
+}
+
+.companion-avatar--leaf {
+  border-radius: 100% 0 100% 0;
+}
+
+.companion-avatar span {
+  position: relative;
+  z-index: 1;
   font-size: 3.1rem;
 }
 
-.companion-orb i {
+.companion-avatar i {
   position: absolute;
+  z-index: 2;
   right: -8px;
   bottom: 2px;
   width: 19px;
@@ -354,6 +372,38 @@ a {
   background: var(--accent);
   border: 4px solid #fff;
   border-radius: 50%;
+}
+
+.companion-avatar--mini {
+  width: 42px;
+  height: 42px;
+  border: 0;
+  background: #fff3de;
+  box-shadow: none;
+}
+
+.companion-avatar--mini span {
+  font-size: 1.45rem;
+}
+
+.companion-avatar--mini.companion-avatar--crystal::before {
+  inset: 4px;
+}
+
+.companion-avatar--option {
+  width: 44px;
+  height: 44px;
+  flex: 0 0 auto;
+  border-width: 4px;
+  box-shadow: none;
+}
+
+.companion-avatar--option span {
+  font-size: 1.35rem;
+}
+
+.companion-avatar--option.companion-avatar--crystal::before {
+  inset: 4px;
 }
 
 .companion-hero-card__content {
@@ -672,6 +722,58 @@ a {
   place-items: center;
   background: #fff3de;
   border-radius: 13px;
+}
+
+.companion-shape-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.companion-shape-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px;
+  color: var(--muted);
+  text-align: left;
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 13px;
+  cursor: pointer;
+  transition: border-color 160ms ease, background 160ms ease, transform 160ms ease;
+}
+
+.companion-shape-option:hover {
+  transform: translateY(-1px);
+  border-color: #bfd6c3;
+}
+
+.companion-shape-option--active {
+  color: var(--primary);
+  background: var(--primary-soft);
+  border-color: #a9c9b0;
+}
+
+.companion-shape-option > span {
+  min-width: 0;
+}
+
+.companion-shape-option strong,
+.companion-shape-option small {
+  display: block;
+}
+
+.companion-shape-option strong {
+  color: var(--ink);
+  font-size: 0.82rem;
+}
+
+.companion-shape-option small {
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 0.68rem;
+  line-height: 1.3;
 }
 
 .settings-help {
@@ -1300,6 +1402,10 @@ a {
 }
 
 @media (max-width: 480px) {
+  .companion-shape-options {
+    grid-template-columns: 1fr;
+  }
+
   .journey-stats-grid,
   .journey-filter-card .form-grid {
     grid-template-columns: 1fr;

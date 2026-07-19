@@ -8,6 +8,8 @@ export type HabitCompletionType = 'minimum' | 'full'
 
 export type CompanionGrowthStage = 'egg' | 'baby' | 'teen' | 'adult' | 'evolved'
 
+export type CompanionShape = 'orb' | 'soft-square' | 'crystal' | 'leaf'
+
 export interface UserProfile {
   id: string
   displayName: string
@@ -44,6 +46,7 @@ export interface HabitLog {
 
 export interface Companion {
   name: string
+  shape: CompanionShape
   totalExperience: number
   level: number
   currentExperience: number

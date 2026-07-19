@@ -18,11 +18,12 @@ describe('localStorageService', () => {
   it('returns a complete default state when storage is empty', () => {
     const state = loadState()
 
-    expect(state.version).toBe(1)
+    expect(state.version).toBe(2)
     expect(state.profile.id).toBeTruthy()
     expect(state.habits).toEqual([])
     expect(state.habitLogs).toEqual([])
     expect(state.companion.name).toBe('Mầm')
+    expect(state.companion.shape).toBe('orb')
   })
 
   it('saves and loads a state with the single application key', () => {
@@ -45,8 +46,30 @@ describe('localStorageService', () => {
     const state = createDefaultState()
     const importedState = importState(exportState(state))
 
-    expect(importedState.version).toBe(1)
-    expect(() => importState('{"version":1}')).toThrow()
+    expect(importedState.version).toBe(2)
+    expect(() => importState('{"version":2}')).toThrow()
+  })
+
+  it('migrates version 1 companions to the default shape', () => {
+    const state = createDefaultState()
+    const legacyState = {
+      ...state,
+      version: 1,
+      companion: {
+        name: state.companion.name,
+        totalExperience: state.companion.totalExperience,
+        level: state.companion.level,
+        currentExperience: state.companion.currentExperience,
+        experienceToNextLevel: state.companion.experienceToNextLevel,
+        growthStage: state.companion.growthStage,
+        happiness: state.companion.happiness,
+      },
+    }
+
+    const migratedState = importState(JSON.stringify(legacyState))
+
+    expect(migratedState.version).toBe(2)
+    expect(migratedState.companion.shape).toBe('orb')
   })
 
   it('clears only the application state key', () => {

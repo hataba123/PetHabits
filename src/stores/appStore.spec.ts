@@ -39,4 +39,14 @@ describe('appStore', () => {
     expect(appStore.updateCompanionName('')).toBe(false)
     expect(appStore.companion.name).toBe(originalName)
   })
+
+  it('updates and persists a valid companion shape', () => {
+    const appStore = useAppStore()
+    appStore.initialize()
+
+    expect(appStore.updateCompanionShape('crystal')).toBe(true)
+    expect(appStore.companion.shape).toBe('crystal')
+    expect(loadState().companion.shape).toBe('crystal')
+    expect(appStore.updateCompanionShape('invalid' as never)).toBe(false)
+  })
 })

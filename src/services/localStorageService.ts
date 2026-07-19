@@ -6,13 +6,15 @@ import type {
   HabitLog,
   UserProfile,
 } from '../models'
+import { isCompanionShape } from '../constants/companion'
 import { createId } from '../utils/id'
 
 export const STORAGE_KEY = 'atomic-companion-state'
-export const CURRENT_STATE_VERSION = 1
+export const CURRENT_STATE_VERSION = 2
 
 const DEFAULT_COMPANION: Companion = {
   name: 'Mầm',
+  shape: 'orb',
   totalExperience: 0,
   level: 1,
   currentExperience: 0,
@@ -124,6 +126,23 @@ function isCompanion(value: unknown): value is Companion {
 
   return (
     isString(value.name) &&
+    isCompanionShape(value.shape) &&
+    isNumber(value.totalExperience) &&
+    isNumber(value.level) &&
+    isNumber(value.currentExperience) &&
+    isNumber(value.experienceToNextLevel) &&
+    ['egg', 'baby', 'teen', 'adult', 'evolved'].includes(String(value.growthStage)) &&
+    isNumber(value.happiness)
+  )
+}
+
+function isLegacyCompanion(value: unknown): value is Omit<Companion, 'shape'> {
+  if (!isRecord(value)) {
+    return false
+  }
+
+  return (
+    isString(value.name) &&
     isNumber(value.totalExperience) &&
     isNumber(value.level) &&
     isNumber(value.currentExperience) &&
@@ -170,14 +189,19 @@ function migrateState(input: unknown): AppState | null {
     return input
   }
 
-  if (input.version === 0) {
+  if (input.version === 1 || input.version === 0) {
     const defaultState = createDefaultState()
+    const companion = isCompanion(input.companion)
+      ? input.companion
+      : isLegacyCompanion(input.companion)
+        ? { ...input.companion, shape: defaultState.companion.shape }
+        : defaultState.companion
     const migratedState: AppState = {
       ...defaultState,
       profile: isUserProfile(input.profile) ? input.profile : defaultState.profile,
       habits: Array.isArray(input.habits) ? input.habits.filter(isHabit) : [],
       habitLogs: Array.isArray(input.habitLogs) ? input.habitLogs.filter(isHabitLog) : [],
-      companion: isCompanion(input.companion) ? input.companion : defaultState.companion,
+      companion,
       settings: isSettings(input.settings) ? input.settings : defaultState.settings,
     }
 

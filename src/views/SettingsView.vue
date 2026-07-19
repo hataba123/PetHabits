@@ -2,7 +2,9 @@
 import { ref } from 'vue'
 
 import { applyTheme } from '../composables/useTheme'
-import type { ThemeMode } from '../models'
+import CompanionAvatar from '../components/CompanionAvatar.vue'
+import { companionShapeOptions } from '../constants/companion'
+import type { CompanionShape, ThemeMode } from '../models'
 import { exportState, importState } from '../services/localStorageService'
 import { useAppStore } from '../stores/appStore'
 import { useCompanionStore } from '../stores/companionStore'
@@ -53,6 +55,14 @@ function saveCompanionName(): void {
   }
 
   showSuccess('Đã đổi tên bạn đồng hành.')
+}
+
+function changeCompanionShape(shape: CompanionShape): void {
+  if (!appStore.updateCompanionShape(shape)) {
+    return
+  }
+
+  showSuccess('Đã cập nhật hình dạng bạn đồng hành.')
 }
 
 function changeTheme(theme: ThemeMode): void {
@@ -145,10 +155,29 @@ function resetAllData(): void {
         </form>
 
         <form class="settings-card" @submit.prevent="saveCompanionName">
-          <div class="settings-card__heading"><div><span class="eyebrow">Bạn đồng hành</span><h2>Đặt tên cho người bạn nhỏ</h2></div><span class="settings-card__emoji" aria-hidden="true">🥚</span></div>
+          <div class="settings-card__heading"><div><span class="eyebrow">Bạn đồng hành</span><h2>Đặt tên cho người bạn nhỏ</h2></div><CompanionAvatar :shape="appStore.companion.shape" :growth-stage="appStore.companion.growthStage" variant="option" :show-status="false" /></div>
           <label class="field"><span>Tên companion</span><input v-model="companionName" type="text" maxlength="80" placeholder="Ví dụ: Mầm" /><small v-if="companionError" class="field-error">{{ companionError }}</small></label>
           <div class="form-actions"><button class="button button--primary" type="submit">Lưu tên</button></div>
         </form>
+
+        <div class="settings-card">
+          <div class="settings-card__heading"><div><span class="eyebrow">Bạn đồng hành</span><h2>Chọn hình dạng yêu thích</h2></div><span aria-hidden="true">✨</span></div>
+          <p class="settings-help">Hình dạng được lưu ngay và xuất hiện ở mọi nơi bạn gặp {{ appStore.companion.name }}.</p>
+          <div class="companion-shape-options" role="group" aria-label="Hình dạng bạn đồng hành">
+            <button
+              v-for="option in companionShapeOptions"
+              :key="option.value"
+              class="companion-shape-option"
+              :class="{ 'companion-shape-option--active': appStore.companion.shape === option.value }"
+              type="button"
+              :aria-pressed="appStore.companion.shape === option.value"
+              @click="changeCompanionShape(option.value)"
+            >
+              <CompanionAvatar :shape="option.value" :growth-stage="appStore.companion.growthStage" variant="option" :show-status="false" />
+              <span><strong>{{ option.label }}</strong><small>{{ option.description }}</small></span>
+            </button>
+          </div>
+        </div>
       </div>
 
       <aside class="settings-sidebar">

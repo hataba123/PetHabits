@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 
-import type { AppSettings, AppState, UserProfile } from '../models'
+import type { AppSettings, AppState, CompanionShape, UserProfile } from '../models'
+import { isCompanionShape } from '../constants/companion'
 import {
   clearState,
   createDefaultState,
@@ -59,6 +60,16 @@ export const useAppStore = defineStore('app', {
       }
 
       this.appState.companion.name = trimmedName
+      this.persist()
+      return true
+    },
+
+    updateCompanionShape(shape: CompanionShape): boolean {
+      if (!isCompanionShape(shape)) {
+        return false
+      }
+
+      this.appState.companion.shape = shape
       this.persist()
       return true
     },
