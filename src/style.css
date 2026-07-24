@@ -1,3 +1,8 @@
+/* Hallmark · component: companion avatar · genre: playful · theme: existing PetHabits
+ * states: default · hover · focus · active · celebration · reduced-motion
+ * material: soft vinyl 3D · motion: breathe + blink + friendly click reaction · contrast: pass
+ * pre-emit critique: P5 H4 E5 S5 R4 V4
+ */
 :root {
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   color: #24324a;
@@ -12,6 +17,24 @@
   --primary: #4f7c68;
   --primary-soft: #e4f0e7;
   --accent: #e59b57;
+  --pet-fur-cat: #f2b477;
+  --pet-fur-fox: #e58a4f;
+  --pet-fur-bunny: #f5d5d1;
+  --pet-fur-panda: #f9fbf7;
+  --pet-fur-dog: #d9a16c;
+  --pet-fur-koala: #c1ccc5;
+  --pet-fur-penguin: #3e5c69;
+  --pet-fur-otter: #a87758;
+  --pet-fur-hamster: #dba56d;
+  --pet-fur-frog: #79b86b;
+  --pet-fur-turtle: #6f9c63;
+  --pet-fur-deer: #c98f5e;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-micro: 120ms;
+  --dur-short: 220ms;
+  --dur-long: 420ms;
 }
 
 :root[data-theme='dark'] {
@@ -2368,6 +2391,334 @@ a {
   }
 }
 
+.companion-avatar {
+  --companion-fur: var(--primary);
+  color: var(--ink);
+  isolation: isolate;
+  background-image:
+    linear-gradient(145deg, color-mix(in srgb, var(--surface) 66%, transparent), transparent 45%),
+    linear-gradient(145deg, color-mix(in srgb, var(--primary-soft) 62%, var(--surface)), var(--primary-soft));
+  box-shadow:
+    inset 7px 8px 13px color-mix(in srgb, var(--surface) 76%, transparent),
+    inset -8px -10px 16px color-mix(in srgb, var(--primary) 14%, transparent),
+    0 14px 30px color-mix(in srgb, var(--ink) 13%, transparent);
+}
+
+.companion-avatar::before {
+  position: absolute;
+  inset: 7px 10px auto 13px;
+  z-index: -1;
+  height: 34%;
+  content: '';
+  background: linear-gradient(180deg, color-mix(in srgb, var(--surface) 76%, transparent), transparent);
+  border-radius: 50%;
+  opacity: 0.76;
+  pointer-events: none;
+}
+
+.companion-avatar--cat { --companion-fur: var(--pet-fur-cat); }
+.companion-avatar--fox { --companion-fur: var(--pet-fur-fox); }
+.companion-avatar--bunny { --companion-fur: var(--pet-fur-bunny); }
+.companion-avatar--panda { --companion-fur: var(--pet-fur-panda); }
+.companion-avatar--dog { --companion-fur: var(--pet-fur-dog); }
+.companion-avatar--koala { --companion-fur: var(--pet-fur-koala); }
+.companion-avatar--penguin { --companion-fur: var(--pet-fur-penguin); }
+.companion-avatar--otter { --companion-fur: var(--pet-fur-otter); }
+.companion-avatar--hamster { --companion-fur: var(--pet-fur-hamster); }
+.companion-avatar--frog { --companion-fur: var(--pet-fur-frog); }
+.companion-avatar--turtle { --companion-fur: var(--pet-fur-turtle); }
+.companion-avatar--deer { --companion-fur: var(--pet-fur-deer); }
+
+.companion-avatar__body-stop--light {
+  stop-color: color-mix(in srgb, var(--companion-fur) 46%, var(--surface));
+}
+
+.companion-avatar__body-stop--base {
+  stop-color: var(--companion-fur);
+}
+
+.companion-avatar__body-stop--shade {
+  stop-color: color-mix(in srgb, var(--companion-fur) 78%, var(--ink));
+}
+
+.companion-avatar__eye-stop--light {
+  stop-color: color-mix(in srgb, var(--ink) 48%, var(--surface));
+}
+
+.companion-avatar__eye-stop--base {
+  stop-color: var(--ink);
+}
+
+.companion-avatar__eye-stop--shade {
+  stop-color: color-mix(in srgb, var(--ink) 88%, var(--muted));
+}
+
+.companion-avatar__glow-stop--bright {
+  stop-color: var(--surface);
+  stop-opacity: 0.34;
+}
+
+.companion-avatar__glow-stop--clear {
+  stop-color: var(--surface);
+  stop-opacity: 0;
+}
+
+.companion-avatar__cat-main,
+.companion-avatar__fox-main,
+.companion-avatar__bunny-main,
+.companion-avatar__panda-main,
+.companion-avatar__dog-main,
+.companion-avatar__koala-main,
+.companion-avatar__penguin-flipper,
+.companion-avatar__penguin-main,
+.companion-avatar__otter-main,
+.companion-avatar__hamster-main,
+.companion-avatar__frog-bulb,
+.companion-avatar__frog-main,
+.companion-avatar__turtle-shell,
+.companion-avatar__deer-main {
+  fill: var(--companion-body-fill);
+}
+
+.companion-avatar__eye,
+.companion-avatar__frog-eye {
+  fill: var(--companion-eye-fill);
+  filter: drop-shadow(0 1px 0 color-mix(in srgb, var(--surface) 22%, transparent));
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.companion-avatar__eye-shine {
+  filter: drop-shadow(1px 1px 1px color-mix(in srgb, var(--surface) 48%, transparent));
+}
+
+.companion-avatar__ground-shadow {
+  fill: var(--ink);
+  opacity: 0.16;
+  filter: blur(3px);
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.companion-avatar__face-glow {
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+.companion-avatar__depth {
+  transform-box: fill-box;
+  transform-origin: center bottom;
+  animation: companion-breathe 4.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.companion-avatar:not(.companion-avatar--expression-wink) .companion-avatar__eye,
+.companion-avatar:not(.companion-avatar--expression-wink) .companion-avatar__frog-eye {
+  animation: companion-blink 5.6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.companion-avatar i {
+  background: linear-gradient(145deg, color-mix(in srgb, var(--accent) 48%, var(--surface)), var(--accent));
+  border-color: var(--surface);
+  box-shadow:
+    inset 2px 2px 3px color-mix(in srgb, var(--surface) 62%, transparent),
+    0 3px 8px color-mix(in srgb, var(--ink) 18%, transparent);
+}
+
+.companion-avatar--mini {
+  box-shadow:
+    inset 3px 3px 6px color-mix(in srgb, var(--surface) 68%, transparent),
+    inset -4px -5px 8px color-mix(in srgb, var(--primary) 12%, transparent);
+}
+
+.companion-avatar--mini .companion-avatar__depth {
+  animation: none;
+}
+
+.companion-avatar--hero {
+  width: 144px;
+  height: 144px;
+}
+
+.companion-avatar--option {
+  width: 68px;
+  height: 68px;
+}
+
+.companion-avatar--interactive {
+  cursor: pointer;
+  touch-action: manipulation;
+  user-select: none;
+  transition: transform var(--dur-micro) var(--ease-out);
+}
+
+.companion-avatar--interactive:focus-visible {
+  outline: 3px solid var(--primary);
+  outline-offset: 4px;
+}
+
+.companion-avatar--interactive:active {
+  transform: scale(0.98);
+}
+
+.companion-avatar--interactive::after {
+  position: absolute;
+  inset: -7px;
+  z-index: -1;
+  content: '';
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.72);
+}
+
+.companion-avatar__reaction-heart,
+.companion-avatar__reaction-spark,
+.companion-avatar__reaction-dot {
+  opacity: 0;
+  pointer-events: none;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.companion-avatar__reaction-heart {
+  --reaction-x: 0px;
+  --reaction-y: -13px;
+  fill: var(--accent);
+}
+
+.companion-avatar__reaction-spark,
+.companion-avatar__reaction-dot {
+  fill: var(--primary);
+}
+
+.companion-avatar__reaction-spark--left {
+  --reaction-x: -9px;
+  --reaction-y: -7px;
+}
+
+.companion-avatar__reaction-spark--right {
+  --reaction-x: 9px;
+  --reaction-y: -8px;
+}
+
+.companion-avatar__reaction-dot--left {
+  --reaction-x: -8px;
+  --reaction-y: 2px;
+}
+
+.companion-avatar__reaction-dot--right {
+  --reaction-x: 8px;
+  --reaction-y: 1px;
+}
+
+.companion-avatar--celebrating::after {
+  animation: companion-reaction-ring 560ms var(--ease-out) both;
+}
+
+.companion-avatar--celebrating .companion-avatar__depth {
+  animation: companion-friendly-hop 560ms var(--ease-out) both;
+}
+
+.companion-avatar--celebrating .companion-avatar__reaction-heart,
+.companion-avatar--celebrating .companion-avatar__reaction-spark,
+.companion-avatar--celebrating .companion-avatar__reaction-dot {
+  animation: companion-reaction-pop 520ms var(--ease-out) both;
+}
+
+.companion-avatar--celebrating .companion-avatar__reaction-spark--right,
+.companion-avatar--celebrating .companion-avatar__reaction-dot--left {
+  animation-delay: 40ms;
+}
+
+.companion-avatar--celebrating .companion-avatar__reaction-dot--right {
+  animation-delay: 70ms;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .companion-avatar--interactive:not(.companion-avatar--celebrating):hover .companion-avatar__depth {
+    animation: none;
+    transform: translateY(-2px);
+  }
+}
+
+.companion-shape-option {
+  min-height: 96px;
+  padding: 12px;
+  background: color-mix(in srgb, var(--surface) 38%, transparent);
+}
+
+.companion-shape-option:hover {
+  background: color-mix(in srgb, var(--primary-soft) 56%, var(--surface));
+}
+
+.companion-shape-option strong {
+  font-size: 0.86rem;
+}
+
+.companion-shape-option small {
+  font-size: 0.72rem;
+  line-height: 1.42;
+}
+
+@keyframes companion-breathe {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-1.5px) scale(1.012, 0.995); }
+}
+
+@keyframes companion-blink {
+  0%, 44%, 48%, 100% { transform: scaleY(1); }
+  46% { transform: scaleY(0.12); }
+}
+
+@keyframes companion-friendly-hop {
+  0%, 100% { transform: translateY(0) rotate(0) scale(1); }
+  28% { transform: translateY(2px) rotate(0) scale(0.97, 1.03); }
+  58% { transform: translateY(-7px) rotate(-2deg) scale(1.025, 0.985); }
+  80% { transform: translateY(-2px) rotate(1deg) scale(1.01); }
+}
+
+@keyframes companion-reaction-pop {
+  0% { opacity: 0; transform: translate(0, 4px) scale(0.55); }
+  32% { opacity: 1; }
+  100% { opacity: 0; transform: translate(var(--reaction-x), var(--reaction-y)) scale(1.12); }
+}
+
+@keyframes companion-reaction-ring {
+  0% { opacity: 0; transform: scale(0.72); }
+  24% { opacity: 0.55; }
+  100% { opacity: 0; transform: scale(1.18); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .companion-avatar__depth,
+  .companion-avatar__eye,
+  .companion-avatar__frog-eye,
+  .companion-avatar--celebrating::after,
+  .companion-avatar--celebrating .companion-avatar__reaction-heart,
+  .companion-avatar--celebrating .companion-avatar__reaction-spark,
+  .companion-avatar--celebrating .companion-avatar__reaction-dot {
+    animation: none;
+  }
+
+  .companion-avatar--celebrating .companion-avatar__face-glow {
+    opacity: 0.72;
+  }
+}
+
+@media (max-width: 780px) {
+  .companion-avatar--hero {
+    width: 124px;
+    height: 124px;
+  }
+}
+
+html,
+body {
+  min-width: 0;
+  overflow-x: clip;
+}
+
 @media (max-width: 480px) {
   .companion-shape-options {
     grid-template-columns: 1fr;
@@ -2411,5 +2762,269 @@ a {
   .journey-heatmap__weekday-row,
   .journey-heatmap__grid {
     gap: 5px;
+  }
+}
+
+/* Release polish: subtle depth, motion and clearer interaction states. */
+body {
+  background:
+    radial-gradient(circle at 8% -8%, rgba(229, 155, 87, 0.14), transparent 28rem),
+    radial-gradient(circle at 92% 4%, rgba(79, 124, 104, 0.12), transparent 30rem),
+    #f6f8f4;
+}
+
+:root[data-theme='dark'] body {
+  background:
+    radial-gradient(circle at 8% -8%, rgba(240, 179, 109, 0.1), transparent 28rem),
+    radial-gradient(circle at 92% 4%, rgba(143, 197, 163, 0.1), transparent 30rem),
+    #111915;
+}
+
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: color-mix(in srgb, var(--surface) 84%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--line) 72%, transparent);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+}
+
+.brand-mark {
+  box-shadow: 0 8px 18px rgba(79, 124, 104, 0.22);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.brand:hover .brand-mark {
+  transform: rotate(-6deg) scale(1.05);
+  box-shadow: 0 10px 24px rgba(79, 124, 104, 0.3);
+}
+
+.page-container {
+  animation: page-enter 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes page-enter {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.button {
+  box-shadow: 0 4px 10px rgba(47, 74, 64, 0.06);
+  transition: transform 180ms ease, background 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.button:hover:not(:disabled) {
+  box-shadow: 0 8px 18px rgba(47, 74, 64, 0.12);
+}
+
+.feedback {
+  animation: feedback-in 260ms ease both;
+}
+
+@keyframes feedback-in {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.today-habit-row,
+.habit-card {
+  transition: transform 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
+}
+
+.today-habit-row {
+  box-shadow: 0 5px 16px rgba(47, 74, 64, 0.035);
+}
+
+.today-habit-row:hover,
+.habit-card:hover {
+  border-color: color-mix(in srgb, var(--primary) 35%, var(--line));
+  box-shadow: 0 16px 34px rgba(47, 74, 64, 0.1);
+  transform: translateY(-3px);
+}
+
+.modal-backdrop {
+  animation: modal-backdrop-in 180ms ease both;
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+
+.modal-panel {
+  animation: modal-panel-in 240ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes modal-backdrop-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes modal-panel-in { from { opacity: 0; transform: translateY(12px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+
+.filter-tab,
+.theme-option,
+.icon-button,
+.nav-link,
+.completion-option,
+.companion-shape-option {
+  transition: color 180ms ease, background 180ms ease, border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: color-mix(in srgb, var(--muted) 72%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Interface refinement: clearer navigation hierarchy and calmer content rhythm. */
+.app-shell {
+  position: relative;
+}
+
+.app-header {
+  max-width: none;
+  padding-inline: max(28px, calc((100vw - 1124px) / 2));
+}
+
+.main-nav {
+  gap: 4px;
+  padding: 4px;
+  background: color-mix(in srgb, var(--primary-soft) 62%, transparent);
+  border: 1px solid color-mix(in srgb, var(--line) 82%, transparent);
+  border-radius: 14px;
+}
+
+.nav-link {
+  position: relative;
+  min-height: 36px;
+  padding: 8px 12px;
+  font-weight: 650;
+}
+
+.nav-link:hover {
+  color: var(--primary);
+  background: color-mix(in srgb, var(--surface) 82%, transparent);
+}
+
+.nav-link--active {
+  color: var(--ink);
+  background: var(--surface);
+  box-shadow: 0 3px 10px color-mix(in srgb, var(--primary) 13%, transparent);
+}
+
+.nav-link--active::after {
+  position: absolute;
+  right: 12px;
+  bottom: 5px;
+  left: 12px;
+  height: 2px;
+  content: '';
+  background: var(--accent);
+  border-radius: 99px;
+}
+
+.page-container {
+  padding-top: 46px;
+}
+
+.page-intro {
+  max-width: 720px;
+}
+
+.page-intro p {
+  max-width: 62ch;
+  line-height: 1.65;
+}
+
+.today-progress-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 22px;
+  box-shadow: 0 16px 36px color-mix(in srgb, var(--primary) 9%, transparent);
+}
+
+.today-progress-card::after {
+  position: absolute;
+  top: -54px;
+  right: -34px;
+  width: 154px;
+  height: 154px;
+  content: '';
+  background: color-mix(in srgb, var(--accent) 15%, transparent);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.today-progress-card__heading,
+.today-progress-card > p,
+.today-progress-card .progress-track {
+  position: relative;
+  z-index: 1;
+}
+
+.progress-track {
+  height: 10px;
+  background: color-mix(in srgb, var(--primary) 15%, var(--surface));
+  box-shadow: inset 0 1px 2px color-mix(in srgb, var(--ink) 10%, transparent);
+}
+
+.progress-track span {
+  background: linear-gradient(90deg, var(--primary), color-mix(in srgb, var(--primary) 72%, var(--accent)));
+  box-shadow: 0 2px 7px color-mix(in srgb, var(--primary) 38%, transparent);
+}
+
+.section-heading {
+  margin-top: 40px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid color-mix(in srgb, var(--line) 84%, transparent);
+}
+
+.section-count {
+  padding: 6px 9px;
+  background: color-mix(in srgb, var(--primary-soft) 68%, transparent);
+  border-radius: 99px;
+  font-weight: 700;
+}
+
+.today-habit-row {
+  min-height: 82px;
+  border-radius: 18px;
+}
+
+.today-habit-row__icon {
+  width: 38px;
+  height: 38px;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--primary) 12%, transparent);
+}
+
+.habit-card {
+  border-radius: 20px;
+}
+
+.habit-card__topline {
+  padding-bottom: 14px;
+  border-bottom: 1px solid color-mix(in srgb, var(--line) 78%, transparent);
+}
+
+@media (max-width: 780px) {
+  .app-header {
+    padding-inline: 18px;
+  }
+
+  .main-nav {
+    width: calc(100% + 4px);
+    padding: 3px;
+    border-radius: 12px;
+  }
+
+  .page-container {
+    padding-top: 30px;
+  }
+
+  .section-heading {
+    margin-top: 30px;
   }
 }

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, nextTick, onBeforeUnmount, ref, useId } from 'vue'
 
 import { toCompanionAnimal } from '../constants/companion'
 import type {
@@ -31,21 +31,115 @@ const props = withDefaults(
 )
 
 const animal = computed<CompanionAnimal>(() => toCompanionAnimal(props.shape))
+const svgId = useId().replaceAll(':', '')
+const bodyGradientId = `${svgId}-body`
+const eyeGradientId = `${svgId}-eye`
+const glowGradientId = `${svgId}-glow`
+const depthFilterId = `${svgId}-depth`
+const isCelebrating = ref(false)
+const isInteractive = computed(() => props.variant !== 'option')
+const celebrationDurationMs = 650
+let celebrationTimer: ReturnType<typeof setTimeout> | undefined
 
 const avatarClasses = computed(() => [
   'companion-avatar',
+  {
+    'companion-avatar--interactive': isInteractive.value,
+    'companion-avatar--celebrating': isCelebrating.value,
+  },
   `companion-avatar--${props.variant}`,
   `companion-avatar--${animal.value}`,
   `companion-avatar--${props.growthStage}`,
   `companion-avatar--${props.color}`,
   `companion-avatar--expression-${props.expression}`,
 ])
+
+const celebrate = async () => {
+  if (!isInteractive.value) {
+    return
+  }
+
+  if (celebrationTimer !== undefined) {
+    clearTimeout(celebrationTimer)
+  }
+
+  isCelebrating.value = false
+  await nextTick()
+  isCelebrating.value = true
+
+  celebrationTimer = setTimeout(() => {
+    isCelebrating.value = false
+    celebrationTimer = undefined
+  }, celebrationDurationMs)
+}
+
+const handleKeydown = (event: KeyboardEvent) => {
+  if (event.key !== 'Enter' && event.key !== ' ') {
+    return
+  }
+
+  event.preventDefault()
+  void celebrate()
+}
+
+onBeforeUnmount(() => {
+  if (celebrationTimer !== undefined) {
+    clearTimeout(celebrationTimer)
+  }
+})
 </script>
 
 <template>
-  <div :class="avatarClasses" aria-hidden="true">
-    <svg class="companion-avatar__art" viewBox="0 0 120 120" focusable="false">
-      <g v-if="animal === 'cat'" class="companion-avatar__animal companion-avatar__animal--cat">
+  <div
+    :class="avatarClasses"
+    :data-state="isCelebrating ? 'celebrating' : 'idle'"
+    :role="isInteractive ? 'button' : undefined"
+    :tabindex="isInteractive ? 0 : undefined"
+    :aria-label="isInteractive ? 'Chào bạn đồng hành' : undefined"
+    :aria-hidden="isInteractive ? undefined : 'true'"
+    @click="celebrate"
+    @keydown="handleKeydown"
+  >
+    <svg
+      class="companion-avatar__art"
+      viewBox="0 0 120 120"
+      focusable="false"
+      aria-hidden="true"
+      :style="{
+        '--companion-body-fill': `url(#${bodyGradientId})`,
+        '--companion-eye-fill': `url(#${eyeGradientId})`,
+      }"
+    >
+      <defs>
+        <linearGradient :id="bodyGradientId" x1="22" y1="17" x2="91" y2="108" gradientUnits="userSpaceOnUse">
+          <stop class="companion-avatar__body-stop companion-avatar__body-stop--light" offset="0" />
+          <stop class="companion-avatar__body-stop companion-avatar__body-stop--base" offset="0.46" />
+          <stop class="companion-avatar__body-stop companion-avatar__body-stop--shade" offset="1" />
+        </linearGradient>
+        <radialGradient :id="eyeGradientId" cx="35%" cy="28%" r="72%">
+          <stop class="companion-avatar__eye-stop companion-avatar__eye-stop--light" offset="0" />
+          <stop class="companion-avatar__eye-stop companion-avatar__eye-stop--base" offset="0.34" />
+          <stop class="companion-avatar__eye-stop companion-avatar__eye-stop--shade" offset="1" />
+        </radialGradient>
+        <radialGradient :id="glowGradientId" cx="38%" cy="34%" r="65%">
+          <stop class="companion-avatar__glow-stop companion-avatar__glow-stop--bright" offset="0" />
+          <stop class="companion-avatar__glow-stop companion-avatar__glow-stop--clear" offset="1" />
+        </radialGradient>
+        <filter :id="depthFilterId" x="-25%" y="-25%" width="150%" height="165%" color-interpolation-filters="sRGB">
+          <feDropShadow dx="0" dy="3.5" stdDeviation="2.6" flood-color="currentColor" flood-opacity="0.2" />
+        </filter>
+      </defs>
+
+      <ellipse class="companion-avatar__ground-shadow" cx="60" cy="105" rx="29" ry="7" />
+      <g class="companion-avatar__reaction" aria-hidden="true">
+        <path class="companion-avatar__reaction-heart" d="M60 17c-7-6-15 4-7 11l7 6 7-6c8-7 0-17-7-11Z" />
+        <path class="companion-avatar__reaction-spark companion-avatar__reaction-spark--left" d="m25 34 2 6 6 2-6 2-2 6-2-6-6-2 6-2Z" />
+        <path class="companion-avatar__reaction-spark companion-avatar__reaction-spark--right" d="m96 40 2 5 5 2-5 2-2 5-2-5-5-2 5-2Z" />
+        <circle class="companion-avatar__reaction-dot companion-avatar__reaction-dot--left" cx="19" cy="67" r="3" />
+        <circle class="companion-avatar__reaction-dot companion-avatar__reaction-dot--right" cx="103" cy="70" r="3" />
+      </g>
+      <g class="companion-avatar__depth" :style="{ filter: `url(#${depthFilterId})` }">
+        <g v-if="animal === 'cat'" class="companion-avatar__animal companion-avatar__animal--cat">
         <path class="companion-avatar__cat-main" d="M28 49 23 20 49 37Z" />
         <path class="companion-avatar__cat-main" d="m92 49 5-29-26 17Z" />
         <path class="companion-avatar__cat-inner-ear" d="m29 39-2-12 11 9Z" />
@@ -58,7 +152,7 @@ const avatarClasses = computed(() => [
         <circle class="companion-avatar__eye-shine" cx="72.5" cy="60" r="1.6" />
         <path class="companion-avatar__nose" d="m56 72 4-3 4 3-4 5Z" />
         <path class="companion-avatar__line" d="M60 77q-4 5-8 1m8-1q4 5 8 1M39 73l-12-2m12 7-12 2m42-7 12-2m-12 7 12 2" />
-      </g>
+        </g>
 
       <g v-else-if="animal === 'fox'" class="companion-avatar__animal companion-avatar__animal--fox">
         <path class="companion-avatar__fox-main" d="M29 48 21 17l30 19Z" />
@@ -236,6 +330,8 @@ const avatarClasses = computed(() => [
       <path v-else-if="accessory === 'crown'" class="companion-avatar__accessory companion-avatar__accessory--crown" d="m40 29 4-15 10 9 6-13 6 13 10-9 4 15Z" />
       <path v-if="expression === 'wink'" class="companion-avatar__expression" d="M39 62q6-6 12 0m18 0q6-6 12 0" />
       <path v-if="growthStage === 'evolved'" class="companion-avatar__sparkle" d="m99 22 2 6 6 2-6 2-2 6-2-6-6-2 6-2Z" />
+      <ellipse class="companion-avatar__face-glow" cx="45" cy="45" rx="23" ry="17" :fill="`url(#${glowGradientId})`" />
+      </g>
     </svg>
     <i v-if="showStatus"></i>
   </div>
