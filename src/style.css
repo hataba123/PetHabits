@@ -2165,6 +2165,10 @@ a {
   margin: 0 0 18px;
 }
 
+.empty-state--compact p {
+  color: var(--ink);
+}
+
 .modal-backdrop {
   position: fixed;
   inset: 0;
